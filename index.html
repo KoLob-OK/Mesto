@@ -41,7 +41,7 @@
          <img class="element__image" src="././images/Zorro/photo_2022-06-13_18-00-05.jpg">
          <div class="element__wrapper">
            <h2 class="element__title">Макро</h2>
-             <button class="element__like-button"></button>
+             <button class="element__like-button"></button> <!-- сюда будем добавлять модификатор element__like-button_active-->
          </div>
        </li>
 
@@ -92,9 +92,40 @@
    <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
  </footer>
 
-<div class="popup">
+<section class="popup"> <!---сюда будем добавлять модификатор _opened-->
+  <div class="popup__container">
+    <button type="button" class="popup__close"></button>
+    <h2 class="popup__title">Редактировать профиль</h2>
+    <form name="edit-form" method="GET" action="#" class="form popup__form" novalidate>
+      <fieldset class="form__set">
+        <input
+          class="form__input"
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Имя"
+          minlength="2"
+          maxlength="35"
+          value=""
+          required>
 
-</div>
+        <input
+          class="form__input"
+          type="text"
+          name="job"
+          id="job"
+          placeholder="О себе"
+          minlength="2"
+          maxlength="50"
+          value=""
+          required>
 
+        <button class="form__submit" type="submit" >Сохранить</button>
+      </fieldset>
+    </form>
+  </div>
+</section>
+
+<script src="./scripts/index.js"></script>
 </body>
 </html>
