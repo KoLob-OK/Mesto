@@ -8,10 +8,10 @@ const popupElement = document.querySelector('.popup');
 const popupCloseButtonElement = popupElement.querySelector('.popup__close');
 
 /* Создание переменной имени пользователя в попапе*/
-let nameInput = popupElement.querySelector('.form__input_username');
+let nameInput = popupElement.querySelector('.form__input_type_username');
 
 /* Создание переменной Job пользователя в попапе*/
-let jobInput = popupElement.querySelector('.form__input_job');
+let jobInput = popupElement.querySelector('.form__input_type_job');
 
 /* Создание переменной кнопки "Сохранить"*/
 const formSubmit = popupElement.querySelector('.popup__form');
@@ -44,7 +44,7 @@ popupCloseButtonElement.addEventListener('click', closePopup);
 
 const formSubmitHandler = function (evt) {
   evt.preventDefault();
-  evt.stopPropagation();
+  // evt.stopPropagation();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closePopup();

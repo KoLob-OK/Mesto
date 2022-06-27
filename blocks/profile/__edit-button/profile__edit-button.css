@@ -4,6 +4,7 @@
   background: url("../../../images/edit-button.svg");
   background-position: 50%;
   background-repeat: no-repeat;
+  background-size: 10px;
   border: 1px solid #FFF;
   padding: 0;
   box-sizing: border-box;
@@ -35,7 +36,7 @@
   .profile__edit-button {
     width: 18px;
     height: 18px;
-
+    background-size: 7.5px;
   }
 }
 
