@@ -1,12 +1,11 @@
 .header {
   width: calc(100% - 2*200px);
-  position: relative;
-  margin: 0 auto;
   box-sizing: border-box;
+  border-bottom: 1px solid rgba(84, 84, 84, .7);
 
 }
 
-.header::before {
+/*.header::before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -15,7 +14,7 @@
   height: 1px;
   background-color: #545454;
   opacity: .7;
-}
+}*/
 
 @media screen and (max-width: 1140px) {
   .header {
@@ -32,6 +31,5 @@
 @media screen and (max-width: 568px) {
   .header {
     width: 100%;
-    padding: 0 27px 0;
   }
 }

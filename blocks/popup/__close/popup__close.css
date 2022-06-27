@@ -2,9 +2,10 @@
   background: url("../../../images/CloseIcon.svg");
   background-position: 50%;
   background-repeat: no-repeat;
-  border: none;
+  background-size: 32px;
   width: 32px;
   height: 32px;
+  border: none;
   padding: 0;
   box-sizing: border-box;
   transition: opacity .3s linear;
@@ -22,6 +23,7 @@
   .popup__close {
     width: 20px;
     height: 20px;
+    background-size: 20px;
     top: -40px;
     right: 0;
   }

@@ -9,11 +9,6 @@
   row-gap: 16px;
 }
 
-@media screen and (max-width: 984px) {
-  .profile__info {
-  }
-}
-
 @media screen and (max-width: 568px) {
   .profile__info {
     grid-template-columns: 1fr 18px;

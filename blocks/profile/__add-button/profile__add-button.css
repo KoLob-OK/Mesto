@@ -17,10 +17,10 @@
   opacity: .6;
 }
 
-@media  screen and (max-width: 568px) {
+@media screen and (max-width: 568px) {
   .profile__add-button {
     width: 100%;
-    margin: 36px 0 0;
+    margin: 36px 0 0; /* вниманию ревьюера! Для исправления неверного отступа удален row-gap: 14px в медиа-запросе для элемента profile */
     background-size: 16px;
   }
 }
