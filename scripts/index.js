@@ -31,9 +31,9 @@ const popupEditProfile = document.querySelector('.popup_type_profile-edit');
 // ищем кнопку для открытия попапа редактирования профиля
 const popupEditProfileButton = document.querySelector('.profile__edit-button');
 // ищем кнопку закрытия попапа редактирования профиля
-const popupCloseButton = popupEditProfile.querySelector('.popup__close_type_edit');
+const popupCloseButton = popupEditProfile.querySelector('.popup__close');
 // ищем форму попапа редактирования профиля
-const formEditProfileSubmit = popupEditProfile.querySelector('.popup__form_type_edit');
+const formEditProfileSubmit = popupEditProfile.querySelector('.popup__form');
 // ищем инпуты (переменные) формы попапа редактирования профиля
 let nameInput = popupEditProfile.querySelector('.form__input_type_username');
 let jobInput = popupEditProfile.querySelector('.form__input_type_job');
@@ -46,20 +46,20 @@ const popupAddCard = document.querySelector('.popup_type_add-card');
 // ищем кнопку открытия попапа добавления карточки
 const popupAddCardButton = document.querySelector('.profile__add-button');
 // ищем кнопку для закрытия попапа добавления карточки
-const popupCloseAddCardButton = popupAddCard.querySelector('.popup__close_type_add');
+const popupCloseAddCardButton = popupAddCard.querySelector('.popup__close');
 // ищем кнопку "Создать" попапа добавления карточки
-const formAddCardSubmit = popupAddCard.querySelector('.submit_add-button');
+const formAddCardSubmit = popupAddCard.querySelector('.popup__form');
 
-// ищем форму попапа добавления карточки
-const formAddCard = popupAddCard.querySelector('.popup__form_type_add');
+// // ищем форму попапа добавления карточки
+// const formAddCard = popupAddCard.querySelector('.');
 // ищем контейнер, в который будем вставлять карточки
 const cardsList = document.querySelector('.elements__list');
 // ищем шаблон карточки
 const cardTemplate = document.querySelector('.element-tmp').content;
 // ищем инпут названия карточки
-let cardNameInput = formAddCard.querySelector('.form__input_type_name');
+let cardNameInput = formAddCardSubmit.querySelector('.form__input_type_name');
 // ищем инпут ссылки на картинку карточки
-let cardLinkInput = formAddCard.querySelector('.form__input_type_link');
+let cardLinkInput = formAddCardSubmit.querySelector('.form__input_type_link');
 
 
 // функция добавления карточки
@@ -73,7 +73,7 @@ const addCard = (nameValue, imgValue) => {
   // ищем кнопку лайка карточки
   const cardLikeButton = cardElement.querySelector('.element__like-button');
   // ищем кнопку удаления карточки
-  let cardDeleteButton = cardElement.querySelector('.element__del-button');
+  const cardDeleteButton = cardElement.querySelector('.element__del-button');
 
   //задаем соответствия аргументам функции
   cardName.textContent = nameValue;
@@ -100,9 +100,9 @@ const addCard = (nameValue, imgValue) => {
 
 };
 // функция загрузки карточек из массива
-const addCardsFromArray = (array) => {
-  array.map((el) => {
-    return addCard(el.name, el.link);
+const addCardsFromArray = function (array) {
+  array.map(function(card) {
+    return addCard(card.name, card.link);
   });
 };
 // вызываем функцию добавления карточек из массива с аргументом нашего массива
@@ -166,15 +166,15 @@ const openAddCardPopup = function () {
 const closeAddCardPopup = function () {
   togglePopup(popupAddCard);
 };
-// функция отправки данных добавления карточки
+// функция отправки данных добавленой карточки
 const addFormSubmitHandler = function (evt) {
   evt.preventDefault(); //отменяет дефолтную отправку данных
   evt.stopPropagation(); //отменяет всплытие события
   const name = cardNameInput;
   const img = cardLinkInput;
-
+  // вызываем функцию addCard с параметрами значений
   addCard(name.value, img.value);
-
+  // обнуляем поля формы
   name.value = "";
   img.value = "";
   togglePopup(popupAddCard);
