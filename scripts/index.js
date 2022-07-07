@@ -71,13 +71,33 @@ const addCard = (nameValue, imgValue) => {
   // ищем название картинки
   const cardName = cardElement.querySelector('.element__title');
   // ищем кнопку лайка карточки
-  cardLikeButton = cardElement.querySelector('.element__like-button');
+  const cardLikeButton = cardElement.querySelector('.element__like-button');
+  // ищем кнопку удаления карточки
+  let cardDeleteButton = cardElement.querySelector('.element__del-button');
+
   //задаем соответствия аргументам функции
   cardName.textContent = nameValue;
   cardImg.src = imgValue;
   cardImg.alt = nameValue;
   // вставляем элемент в начало списка
   cardsList.prepend(cardElement);
+
+  //Likes
+  // функция добавления класса (модификатора) кнопке лайк
+  const toggleLike = () => {
+    cardLikeButton.classList.toggle('element__like-button_active');
+  };
+  // слушаем кнопку лайк
+  cardLikeButton.addEventListener('click', toggleLike);
+
+  //Delete
+  // функция удаления карточки
+  const cardRemove = () => {
+    cardElement.remove();
+  };
+  // слушаем кнопку корзины
+  cardDeleteButton.addEventListener('click', cardRemove);
+
 };
 // функция загрузки карточек из массива
 const addCardsFromArray = (array) => {
@@ -97,6 +117,8 @@ const closePopup = function (close) {
 const togglePopup = (popup) => {
   popup.classList.toggle('popup_opened');
 };
+
+
 // функция закрытия попапа по клику вне окна
 const closePopupByClickOnOverlay = function (e) {
   if (e.target !== e.currentTarget) {
@@ -107,6 +129,7 @@ const closePopupByClickOnOverlay = function (e) {
 }
 popupEditProfile.addEventListener('click', closePopupByClickOnOverlay);
 popupAddCard.addEventListener('click', closePopupByClickOnOverlay);
+
 
 // функция, выполняемая по нажатию кнопки редактирования профиля
 const openEditProfilePopup = function () {
@@ -126,8 +149,9 @@ const editFormSubmitHandler = function (evt) {
   profileJob.textContent = jobInput.value;
   togglePopup(popupEditProfile);
 }
-
+// слушаем кнопку редактирования профиля пользователя
 popupEditProfileButton.addEventListener('click', openEditProfilePopup);
+// слушаем кнопку закрытия попапа редактирования профиля пользователя
 popupCloseButton.addEventListener('click', closeEditProfilePopup);
 // Submit формы данных пользователя
 formEditProfileSubmit.addEventListener('submit', editFormSubmitHandler);
@@ -155,8 +179,9 @@ const addFormSubmitHandler = function (evt) {
   img.value = "";
   togglePopup(popupAddCard);
 }
-
+// слушаем кнопку добавления карточки
 popupAddCardButton.addEventListener('click', openAddCardPopup);
+// слушаем кнопку закрытия попапа добавления карточки
 popupCloseAddCardButton.addEventListener('click', closeAddCardPopup);
 // Submit формы карточки
 formAddCardSubmit.addEventListener('submit', addFormSubmitHandler);
