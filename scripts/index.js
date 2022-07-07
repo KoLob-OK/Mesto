@@ -1,6 +1,30 @@
 //массив готовых фото
 const initialCards = [
   {
+    name: 'Питер"',
+    link: '../images/Zorro/photo_2022-06-13_18-00-43.jpg'
+  },
+  {
+    name: 'Бальные танцы"',
+    link: '../images/Zorro/photo_2022-06-13_18-02-19.jpg'
+  },
+  {
+    name: 'Птичка на ладони"',
+    link: '../images/Zorro/photo_2022-06-13_18-00-11.jpg'
+  },
+  {
+    name: 'Макро"',
+    link: '../images/Zorro/photo_2022-06-13_18-00-05.jpg'
+  },
+  {
+    name: 'Одуванчики"',
+    link: '../images/Zorro/photo_2022-06-13_17-59-20.jpg'
+  },
+  {
+    name: 'Пёсик"',
+    link: '../images/Zorro/photo_2022-06-13_17-59-45.jpg'
+  },
+  {
     name: 'Ресторан "Борщ"',
     link: 'https://downloader.disk.yandex.ru/preview/3a330064b6a4adaa5ae9f4331b271b30e18ad53df1c3c8caba367ddc809cd6e2/62c6a6d5/7TuFZINFR3stYN3AVxaWB_BYXmPS7R1a3ygpfR6uK3Sovy46qWwPRlssDBERTRq5uPRiQ-YtSlNmJNpSbYa_tA%3D%3D?uid=0&filename=AZH_3056%D0%B8%D1%8E%D0%BD%2022%202022.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1900x902'
   },
