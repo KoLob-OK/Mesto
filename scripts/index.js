@@ -78,32 +78,29 @@ const cardRemove = (e) => {
 
 //Full Size (работа с попапом)
 // функция открытия попапа просмотра фото
-const openExpandPicPopup = (e) => {
+const openExpandPicPopup = (bigPic) => {
   // задаем начальные атрибуты (ссылка, название, alt) для попапа просмотра изображения
-  expandPicImage.src = e.target.src;
-  expandPicName.textContent = e.target.alt;
-  expandPicImage.alt = e.target.alt;
+  expandPicImage.src = bigPic.src;
+  expandPicName.textContent = bigPic.alt;
+  expandPicImage.alt = bigPic.alt;
   openPopup(popupExpandPic);
 };
 // слушаем кнопку закрытия попапа просмотра фото
 popupCloseExpandPicButton.addEventListener('click', () => closePopup(popupExpandPic));
 
 
-const createCard = (nameValue, imgValue) => {
+const createCard = (cardData) => {
   // ищем элемент карточки, который создавать
   const cardElement = cardTemplate.querySelector(selectors.card).cloneNode(true);
 
   // ищем картинку
   const cardImg = cardElement.querySelector(selectors.cardImg);
   // задаем соответствия аргументам
-  cardImg.src = imgValue;
-  cardImg.alt = nameValue;
-  // слушаем нажатие на картинку карточки
-  cardImg.addEventListener('click', openExpandPicPopup);
+  cardImg.src = cardData.imgValue;
+  cardImg.alt = cardData.nameValue;
 
-  // ищем название картинки
-  const cardName = cardElement.querySelector(selectors.cardName);
-  cardName.textContent = nameValue;
+  // слушаем нажатие на картинку карточки
+  cardImg.addEventListener('click', () => openExpandPicPopup(cardImg));
 
   // ищем кнопку лайка карточки
   const cardLikeButton = cardElement.querySelector(selectors.buttonLike);
@@ -121,7 +118,11 @@ const createCard = (nameValue, imgValue) => {
 const addCardsFromArray = (array) => {
   const newList = [];
   array.reverse().forEach((card) => {
-    const newCard = createCard(card.name, card.link);
+    const imgData = {
+      nameValue: card.name,
+      imgValue: card.link
+    };
+    const newCard = createCard(imgData);
     newList.push(newCard);
   });
   // вставляем элемент перед концом с разбиванием массива оператором spread на аргументы функции
@@ -188,9 +189,11 @@ const openAddCardPopup = () => {
 const handleAddFormSubmit = (evt) => {
   evt.preventDefault(); //отменяет дефолтную отправку данных
   evt.stopPropagation(); //отменяет всплытие события
-  const name = cardNameInput;
-  const link = cardLinkInput;
-  const addNewCardValue = createCard(name.value, link.value);
+  const formData = {
+    nameValue: cardNameInput.value,
+    imgValue: cardLinkInput.value
+  };
+  const addNewCardValue = createCard(formData);
   // добавляем в начало галереи
   cardsList.prepend(addNewCardValue);
   closePopup(popupAddCard);
