@@ -102,6 +102,10 @@ const createCard = (cardData) => {
   // слушаем нажатие на картинку карточки
   cardImg.addEventListener('click', () => openExpandPicPopup(cardImg));
 
+  // ищем название картинки
+  const cardName = cardElement.querySelector(selectors.cardName);
+  cardName.textContent = cardData.nameValue;
+
   // ищем кнопку лайка карточки
   const cardLikeButton = cardElement.querySelector(selectors.buttonLike);
   // слушаем кнопку лайк
