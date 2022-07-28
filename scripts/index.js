@@ -164,7 +164,13 @@ popupEditProfile.addEventListener('click', closePopupByClickOnOverlay);
 popupAddCard.addEventListener('click', closePopupByClickOnOverlay);
 popupExpandPic.addEventListener('click', closePopupByClickOnOverlay);
 
-/*---------------------------------------------------------------------------------------*/
+// функция закрытия попапа по нажатию на Escape
+const closePopupByPressEscape = (e) => {
+  if (e.key = 'Escape')
+};
+
+
+  /*---------------------------------------------------------------------------------------*/
 //Edit-Profile (работа с попапом)
 // функция, выполняемая по нажатию кнопки редактирования профиля
 const openEditProfilePopup = () => {
