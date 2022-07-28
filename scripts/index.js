@@ -23,6 +23,11 @@ const selectors = {
   fullSizeImgCaption: '.popup__caption'
 };
 
+const classAddRemove = {
+  like: 'element__like-button_active',
+  popupOpenClose: 'popup_opened'
+};
+
 // ищем попап редактирования профиля
 const popupEditProfile = document.querySelector(selectors.popupEditProfile);
 // ищем кнопку для открытия попапа редактирования профиля
@@ -44,7 +49,7 @@ const popupAddCard = document.querySelector(selectors.popupAddCard);
 const popupAddCardButton = document.querySelector(selectors.buttonAdd);
 // ищем кнопку для закрытия попапа добавления карточки
 const popupCloseAddCardButton = popupAddCard.querySelector(selectors.buttonClose);
-// ищем кнопку "Создать" попапа добавления карточки
+// ищем форму попапа добавления карточки
 const formAddCardSubmit = popupAddCard.querySelector(selectors.form);
 
 // ищем контейнер, в который будем вставлять карточки
@@ -67,7 +72,7 @@ const expandPicName = popupExpandPic.querySelector(selectors.fullSizeImgCaption)
 //Likes
 // функция добавления класса (модификатора) кнопке лайк
 const toggleLike = (e) => {
-  e.target.classList.toggle('element__like-button_active');
+  e.target.classList.toggle(classAddRemove.like);
 };
 
 //Delete
@@ -139,12 +144,12 @@ addCardsFromArray(initialCards);
 /*---------------------------------------------------------------------------------------*/
 // функция закрытия попапа
 const closePopup = (popup) => {
-  popup.classList.remove('popup_opened');
+  popup.classList.remove(classAddRemove.popupOpenClose);
 }
 
-// функция открытия/закрытия попапа
+// функция открытия попапа
 const openPopup = (popup) => {
-  popup.classList.add('popup_opened');
+  popup.classList.add(classAddRemove.popupOpenClose);
 };
 
 // функция закрытия попапа по клику вне окна попапа
