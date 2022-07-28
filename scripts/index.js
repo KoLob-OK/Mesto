@@ -20,7 +20,8 @@ const selectors = {
   cardName: '.element__title',
   cardTemplate: '.element-tmp',
   fullSizeImg: '.popup__image',
-  fullSizeImgCaption: '.popup__caption'
+  fullSizeImgCaption: '.popup__caption',
+  popup: '.popup_opened'
 };
 
 const classAddRemove = {
@@ -89,6 +90,7 @@ const openExpandPicPopup = (bigPic) => {
   expandPicName.textContent = bigPic.alt;
   expandPicImage.alt = bigPic.alt;
   openPopup(popupExpandPic);
+  document.addEventListener(`keydown`, closePopupByPressEscape);
 };
 // слушаем кнопку закрытия попапа просмотра фото
 popupCloseExpandPicButton.addEventListener('click', () => closePopup(popupExpandPic));
@@ -166,7 +168,11 @@ popupExpandPic.addEventListener('click', closePopupByClickOnOverlay);
 
 // функция закрытия попапа по нажатию на Escape
 const closePopupByPressEscape = (e) => {
-  if (e.key = 'Escape')
+  if (e.key === 'Escape') {
+    const openedPopup = document.querySelector(selectors.popup);
+    closePopup(openedPopup);
+    document.removeEventListener(`keydown`, closePopupByPressEscape);
+  }
 };
 
 
@@ -177,6 +183,7 @@ const openEditProfilePopup = () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
   openPopup(popupEditProfile);
+  document.addEventListener(`keydown`, closePopupByPressEscape);
 }
 // функция отправки данных редактирования профиля
 const handleEditFormSubmit = (evt) => {
@@ -198,6 +205,7 @@ formEditProfileSubmit.addEventListener('submit', handleEditFormSubmit);
 // функция, выполняемая по нажатию кнопки добавления карточки
 const openAddCardPopup = () => {
   openPopup(popupAddCard);
+  document.addEventListener(`keydown`, closePopupByPressEscape);
 }
 
 // функция отправки данных добавленой карточки
