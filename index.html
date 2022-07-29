@@ -57,18 +57,21 @@
      <button type="button" class="popup__close" aria-label="Закрыть окно"></button>
      <h2 class="popup__title">Новое место</h2>
      <form name="edit-form" method="GET" action="#" class="form popup__form" novalidate>
-       <input
+       <fieldset class="form__set">
+
+         <input
          class="form__input form__input_type_name"
          type="text"
          name="name"
          id="name"
          placeholder="Название"
          minlength="2"
-         maxlength="45"
+         maxlength="30"
          value=""
          required>
+         <span id="name-error" class="form__input-error"></span>
 
-       <input
+         <input
          class="form__input form__input_type_link"
          type="url"
          name="link"
@@ -76,8 +79,11 @@
          placeholder="Ссылка на картинку"
          value=""
          required>
+         <span id="link-error" class="form__input-error"></span>
 
-       <button class="form__submit" type="submit" >Создать</button>
+         <button class="form__submit" type="submit" >Создать</button>
+
+       </fieldset>
      </form>
    </div>
  </div>
@@ -87,29 +93,35 @@
      <button type="button" class="popup__close" aria-label="Закрыть окно"></button>
      <h2 class="popup__title">Редактировать профиль</h2>
      <form name="edit-form" method="GET" action="#" class="form popup__form" novalidate>
-       <input
+       <fieldset class="form__set">
+
+         <input
          class="form__input form__input_type_username"
          type="text"
          name="username"
          id="username"
          placeholder="Имя"
          minlength="2"
-         maxlength="35"
+         maxlength="40"
          value=""
          required>
+         <span id="username-error" class="form__input-error"></span>
 
-       <input
+         <input
          class="form__input form__input_type_job"
          type="text"
          name="job"
          id="job"
          placeholder="О себе"
          minlength="2"
-         maxlength="50"
+         maxlength="200"
          value=""
          required>
+         <span id="job-error" class="form__input-error"></span>
 
-       <button class="form__submit" type="submit" >Сохранить</button>
+         <button class="form__submit" type="submit" >Сохранить</button>
+
+       </fieldset>
      </form>
    </div>
  </div>
@@ -144,5 +156,6 @@
 
 <script src="./scripts/cards.js"></script>
 <script src="./scripts/index.js"></script>
+ <script src="./scripts/validate.js"></script>
 </body>
 </html>

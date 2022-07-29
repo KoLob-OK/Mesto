@@ -10,7 +10,6 @@
   left: 0;
   right: 0;
   display: flex;
-  font-family: 'Inter', Arial, sans-serif;
   visibility: hidden;
   opacity: 0;
   transition: opacity .5s linear, visibility .5s linear;

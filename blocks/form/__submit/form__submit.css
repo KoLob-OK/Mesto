@@ -4,15 +4,15 @@
   background: #000000;
   border-radius: 2px;
   border: none;
-  font-family: 'Inter', Arial, sans-serif;
+  box-sizing: border-box;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   text-align: center;
-  color: #FFFFFF;
+  color: #FFF;
   padding: 14px 20px 18px;
-  margin-top: 18px;
+  margin-top: 10px;
   cursor: pointer;
   transition: opacity .3s linear;
 }
@@ -21,12 +21,19 @@
   opacity: .8;
 }
 
+.form__submit:disabled {
+  background: #E5E5E5;
+  border: 1px solid #000;
+  color: #000;
+  opacity: 0.2;
+  cursor: auto;
+}
+
 @media screen and (max-width: 568px) {
   .form__submit {
     max-height: 46px;
     font-size: 14px;
     line-height: 17px;
     padding: 14px 20px;
-    margin-top: 15px;
   }
 }
