@@ -90,11 +90,7 @@ const openExpandPicPopup = (bigPic) => {
   expandPicName.textContent = bigPic.alt;
   expandPicImage.alt = bigPic.alt;
   openPopup(popupExpandPic);
-  document.addEventListener(`keydown`, closePopupByPressEscape);
 };
-// слушаем кнопку закрытия попапа просмотра фото
-popupCloseExpandPicButton.addEventListener('click', () => closePopup(popupExpandPic));
-
 
 const createCard = (cardData) => {
   // ищем элемент карточки, который создавать
@@ -147,11 +143,14 @@ addCardsFromArray(initialCards);
 // функция закрытия попапа
 const closePopup = (popup) => {
   popup.classList.remove(classAddRemove.popupOpenClose);
+  document.removeEventListener(`keydown`, closePopupByPressEscape);
+  disableButtons();
 }
 
 // функция открытия попапа
 const openPopup = (popup) => {
   popup.classList.add(classAddRemove.popupOpenClose);
+  document.addEventListener(`keydown`, closePopupByPressEscape);
 };
 
 // функция закрытия попапа по клику вне окна попапа
@@ -171,7 +170,6 @@ const closePopupByPressEscape = (e) => {
   if (e.key === 'Escape') {
     const openedPopup = document.querySelector(selectors.popup);
     closePopup(openedPopup);
-    document.removeEventListener(`keydown`, closePopupByPressEscape);
   }
 };
 
@@ -183,35 +181,25 @@ const openEditProfilePopup = () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
   openPopup(popupEditProfile);
-  document.addEventListener(`keydown`, closePopupByPressEscape);
 }
 // функция отправки данных редактирования профиля
 const handleEditFormSubmit = (evt) => {
   evt.preventDefault(); //отменяет дефолтную отправку данных
-  evt.stopPropagation(); //отменяет всплытие события
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closePopup(popupEditProfile);
 }
-// слушаем кнопку редактирования профиля пользователя
-popupEditProfileButton.addEventListener('click', openEditProfilePopup);
-// слушаем кнопку закрытия попапа редактирования профиля пользователя
-popupCloseButton.addEventListener('click', () => closePopup(popupEditProfile));
-// Submit формы данных пользователя
-formEditProfileSubmit.addEventListener('submit', handleEditFormSubmit);
 
 /*---------------------------------------------------------------------------------------*/
 //Add-Card (работа с попапом)
 // функция, выполняемая по нажатию кнопки добавления карточки
 const openAddCardPopup = () => {
   openPopup(popupAddCard);
-  document.addEventListener(`keydown`, closePopupByPressEscape);
 }
 
 // функция отправки данных добавленой карточки
 const handleAddFormSubmit = (evt) => {
   evt.preventDefault(); //отменяет дефолтную отправку данных
-  evt.stopPropagation(); //отменяет всплытие события
   const formData = {
     nameValue: cardNameInput.value,
     imgValue: cardLinkInput.value
@@ -223,9 +211,20 @@ const handleAddFormSubmit = (evt) => {
   // обнуляем поля формы
   formAddCardSubmit.reset();
 }
+
+// слушаем кнопку редактирования профиля пользователя
+popupEditProfileButton.addEventListener('click', openEditProfilePopup);
+// слушаем кнопку закрытия попапа редактирования профиля пользователя
+popupCloseButton.addEventListener('click', () => closePopup(popupEditProfile));
+// Submit формы данных пользователя
+formEditProfileSubmit.addEventListener('submit', handleEditFormSubmit);
+
 // слушаем кнопку добавления карточки
 popupAddCardButton.addEventListener('click', openAddCardPopup);
 // слушаем кнопку закрытия попапа добавления карточки
 popupCloseAddCardButton.addEventListener('click', () => closePopup(popupAddCard));
 // Submit формы карточки
 formAddCardSubmit.addEventListener('submit', handleAddFormSubmit);
+
+// слушаем кнопку закрытия попапа просмотра фото
+popupCloseExpandPicButton.addEventListener('click', () => closePopup(popupExpandPic));

@@ -1,5 +1,5 @@
 // Создадим объект параметров
-const usedSelectors = {
+const validationConfig = {
   form: '.form',
   formInput: '.form__input',
   formSubmit: '.form__submit',
@@ -14,11 +14,11 @@ const showInputError = (formElement, inputElement, errorMessage) => {
   // Находим элемент ошибки внутри самой функции на основе уникального класса
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   // Добавляем класс нижней красной границы
-  inputElement.classList.add(usedSelectors.inputError);
+  inputElement.classList.add(validationConfig.inputError);
   // Заполняем текстовое содержимое элемента ошибки
   errorElement.textContent = errorMessage;
   // Показываем сообщение об ошибке
-  errorElement.classList.add(usedSelectors.inputErrorActive);
+  errorElement.classList.add(validationConfig.inputErrorActive);
 };
 
 
@@ -27,9 +27,9 @@ const hideInputError = (formElement, inputElement) => {
   // Находим элемент ошибки
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   // Скрываем нижнюю красную границу
-  inputElement.classList.remove(usedSelectors.inputError);
+  inputElement.classList.remove(validationConfig.inputError);
   // Скрываем сообщение об ошибке
-  errorElement.classList.remove(usedSelectors.inputErrorActive);
+  errorElement.classList.remove(validationConfig.inputErrorActive);
   // Очищаем поле элемента ошибки
   errorElement.textContent = '';
 };
@@ -72,12 +72,21 @@ const toggleButtonState = (inputList, buttonElement) => {
 };
 
 
+// Функция отключения кнопок
+const disableButtons = () => {
+  const buttons = document.querySelectorAll(validationConfig.formSubmit);
+  buttons.forEach((item) => {
+    item.setAttribute("disabled", "disabled");
+  });
+};
+
+
 // Функция примет параметром элемент формы и добавит её полям нужные обработчики
 const setEventListeners = (formElement) => {
   // Находим все поля внутри формы, сделаем из них массив
-  const inputList = Array.from(formElement.querySelectorAll(usedSelectors.formInput));
+  const inputList = Array.from(formElement.querySelectorAll(validationConfig.formInput));
   // Найдём в текущей форме кнопку отправки
-  const buttonElement = formElement.querySelector(usedSelectors.formSubmit);
+  const buttonElement = formElement.querySelector(validationConfig.formSubmit);
 
   // Вызовем toggleButtonState, чтобы проверить состояние кнопки в самом начале
   toggleButtonState(inputList, buttonElement);
@@ -97,7 +106,7 @@ const setEventListeners = (formElement) => {
 // Функция находит все формы на странице и обрабатывает их
 const enableValidation = () => {
   // Найдём все формы с указанным классом в DOM, сделаем из них массив
-  const formList = Array.from(document.querySelectorAll(usedSelectors.form));
+  const formList = Array.from(document.querySelectorAll(validationConfig.form));
   // Обойдём все элементы полученного массива
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', function (evt) {
@@ -105,7 +114,7 @@ const enableValidation = () => {
       evt.preventDefault();
     });
     // Найдём все независимые филдсеты с указанным классом в DOM, сделаем из них массив
-    const fieldsetList = Array.from(formElement.querySelectorAll(usedSelectors.formSet));
+    const fieldsetList = Array.from(formElement.querySelectorAll(validationConfig.formSet));
     // Перебираем элементы массива филдсетов
     fieldsetList.forEach((fieldSet) => {
       // Для каждого элемента массива филдсетов вызываем функцию слушателя событий
@@ -114,4 +123,4 @@ const enableValidation = () => {
   });
 };
 
-enableValidation(usedSelectors);
+enableValidation(validationConfig);
