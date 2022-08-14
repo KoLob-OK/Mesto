@@ -1,13 +1,4 @@
-// Создадим объект параметров
-const validationConfig = {
-  form: '.form',
-  formInput: '.form__input',
-  formSubmit: '.form__submit',
-  formSet: '.form__set',
-  inputError: 'form__input_type_error',
-  inputErrorActive: 'form__input-error_active'
-};
-
+import {validationConfig} from './constants.js';
 
 // Функция, которая добавляет класс с ошибкой
 const showInputError = (formElement, inputElement, errorMessage) => {
@@ -72,13 +63,7 @@ const toggleButtonState = (inputList, buttonElement) => {
 };
 
 
-// Функция отключения кнопок
-const disableButtons = () => {
-  const buttons = document.querySelectorAll(validationConfig.formSubmit);
-  buttons.forEach((item) => {
-    item.setAttribute("disabled", "disabled");
-  });
-};
+
 
 
 // Функция примет параметром элемент формы и добавит её полям нужные обработчики
