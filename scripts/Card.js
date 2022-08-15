@@ -1,6 +1,5 @@
-import {selectors, classAddRemove, popupExpandPic, popupCloseExpandPicButton, expandPicImage, expandPicName} from './constants.js';
+import {selectors, classAddRemove, popupExpandPic, popupCloseExpandPicButton, expandPicImage, expandPicName, openPopup, closePopup} from './index.js';
 
-import {openPopup, closePopup} from "./index.js";
 
 export class Card {
   constructor(name, link, cardSelector) {
