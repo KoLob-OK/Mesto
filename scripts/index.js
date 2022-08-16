@@ -93,14 +93,14 @@ function createCard(name, link) {
 }
 
 // Функция добавления карточек
-const addCardFromForm = (name, link) => {
+const addCard = (name, link) => {
   cardsList.prepend(createCard(name, link));
 };
 
 // Функция формирования карточек из массива
-const addCardsFromArray = (array) => {
+const renderInitialCards = (array) => {
   array.forEach((card) => {
-    addCardFromForm(card.name, card.link);
+    addCard(card.name, card.link);
   })
 };
 
@@ -165,7 +165,7 @@ const openAddCardPopup = () => {
 // функция отправки данных добавленной карточки
 const handleAddFormSubmit = (evt) => {
   evt.preventDefault(); //отменяет дефолтную отправку данных
-  addCardFromForm(cardNameInput.value, cardLinkInput.value);
+  addCard(cardNameInput.value, cardLinkInput.value);
   closePopup(popupAddCard);
   // обнуляем поля формы
   formAddCardSubmit.reset();
@@ -173,8 +173,8 @@ const handleAddFormSubmit = (evt) => {
   formAddCardVal.toggleButtonState();
 }
 
-// вызываем функцию добавления карточек из массива с аргументом нашего массива
-addCardsFromArray(initialCards);
+// вызываем функцию формирования карточек из массива с аргументом нашего массива для добавления на страницу
+renderInitialCards(initialCards);
 
 // слушаем кнопку редактирования профиля пользователя
 popupEditProfileButton.addEventListener('click', openEditProfilePopup);
