@@ -1,6 +1,8 @@
-import {Card} from './Card.js';
+import {initialCards} from "./initialCards.js";
 
-import {validationConfig, FormValidator} from './FormValidator.js';
+import Card from './Card.js';
+
+import FormValidator from './FormValidator.js';
 
 const selectors = {
   popupEditProfile: '.popup_type_profile-edit',
@@ -33,33 +35,15 @@ const classAddRemove = {
   popupOpenClose: 'popup_opened'
 };
 
-//массив готовых фото
-const initialCards = [
-  {
-    name: 'Питер',
-    link: './images/Zorro/photo_2022-06-13_18-00-43.jpg'
-  },
-  {
-    name: 'Бальные танцы',
-    link: './images/Zorro/photo_2022-06-13_18-02-19.jpg'
-  },
-  {
-    name: 'Птичка на ладони',
-    link: './images/Zorro/photo_2022-06-13_18-00-11.jpg'
-  },
-  {
-    name: 'Макро',
-    link: './images/Zorro/photo_2022-06-13_18-00-05.jpg'
-  },
-  {
-    name: 'Одуванчики',
-    link: './images/Zorro/photo_2022-06-13_17-59-20.jpg'
-  },
-  {
-    name: 'Пёсик',
-    link: './images/Zorro/photo_2022-06-13_17-59-45.jpg'
-  },
-];
+// Создадим объект параметров
+const validationConfig = {
+  form: '.form',
+  formInput: '.form__input',
+  formSubmit: '.form__submit',
+  formSet: '.form__set',
+  inputError: 'form__input_type_error',
+  inputErrorActive: 'form__input-error_active'
+};
 
 // ищем попап редактирования профиля
 const popupEditProfile = document.querySelector(selectors.popupEditProfile);
@@ -98,19 +82,22 @@ const popupExpandPic = document.querySelector(selectors.popupExpandPic);
 // ищем кнопку закрытия просмотра фото
 const popupCloseExpandPicButton = popupExpandPic.querySelector(selectors.buttonClose);
 // ищем фото попапа просмотра
-const expandPicImage = popupExpandPic.querySelector(selectors.fullSizeImg);
+const popupImage = popupExpandPic.querySelector(selectors.fullSizeImg);
 // ищем название фото попапа просмотра
-const expandPicName = popupExpandPic.querySelector(selectors.fullSizeImgCaption);
+const popupCaption = popupExpandPic.querySelector(selectors.fullSizeImgCaption);
 
+function createCard(name, link) {
+  const card = new Card(name, link, selectors.cardTemplate);
+  const cardElement = card.generateCard();
+  return cardElement;
+}
 
-
-// Функция добавления новых карточек их формы попапа
+// Функция добавления карточек
 const addCardFromForm = (name, link) => {
-  const card = new Card(name, link, selectors.cardTemplate).generateCard();
-  cardsList.prepend(card);
+  cardsList.prepend(createCard(name, link));
 };
 
-// Функция добавления карточек из массива
+// Функция формирования карточек из массива
 const addCardsFromArray = (array) => {
   array.forEach((card) => {
     addCardFromForm(card.name, card.link);
@@ -179,8 +166,6 @@ const openAddCardPopup = () => {
 const handleAddFormSubmit = (evt) => {
   evt.preventDefault(); //отменяет дефолтную отправку данных
   addCardFromForm(cardNameInput.value, cardLinkInput.value);
-  cardNameInput.value = '';
-  cardLinkInput.value = '';
   closePopup(popupAddCard);
   // обнуляем поля формы
   formAddCardSubmit.reset();
@@ -214,4 +199,4 @@ formAddCardVal.enableValidation();
 
 export {selectors, classAddRemove, initialCards, popupEditProfile, popupEditProfileButton, popupCloseButton, formEditProfileSubmit, nameInput, jobInput, profileName,
   profileJob, popupAddCard, popupAddCardButton, popupCloseAddCardButton, formAddCardSubmit, cardsList, cardTemplate, cardNameInput, cardLinkInput,
-  popupExpandPic, popupCloseExpandPicButton,expandPicImage,expandPicName, openPopup, closePopup};
+  popupExpandPic, popupCloseExpandPicButton, popupImage, popupCaption, openPopup, closePopup};

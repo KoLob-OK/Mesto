@@ -1,7 +1,7 @@
-import {selectors, classAddRemove, popupExpandPic, popupCloseExpandPicButton, expandPicImage, expandPicName, openPopup, closePopup} from './index.js';
+import {selectors, classAddRemove, popupExpandPic, popupCloseExpandPicButton, popupImage, popupCaption, openPopup, closePopup} from './index.js';
 
 
-export class Card {
+export default class Card {
   constructor(name, link, cardSelector) {
     this._container = document.querySelector(cardSelector);
     this._name = name;
@@ -28,20 +28,21 @@ export class Card {
   // метод слушателя кнопки "удалить"
   _handleDeleteCard() {
     this._element.remove();
+    this._element = null;
   }
 
   // метод слушателя открытия попапа просмотра изображения
   _handleOpenExpandPicPopup() {
-    expandPicImage.src = this._link;
-    expandPicName.textContent = this._name;
-    expandPicImage.alt = this._name;
+    popupImage.src = this._link;
+    popupCaption.textContent = this._name;
+    popupImage.alt = this._name;
     openPopup(popupExpandPic);
   }
 
   // метод слушателя закрытия попапа просмотра изображения
   _handleCloseExpandPicPopup() {
-    expandPicImage.src = '';
-    expandPicImage.textContent = '';
+    popupImage.src = '';
+    popupImage.textContent = '';
     closePopup(popupExpandPic);
   }
 

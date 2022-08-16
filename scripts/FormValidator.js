@@ -1,14 +1,4 @@
-// Создадим объект параметров
-export const validationConfig = {
-  form: '.form',
-  formInput: '.form__input',
-  formSubmit: '.form__submit',
-  formSet: '.form__set',
-  inputError: 'form__input_type_error',
-  inputErrorActive: 'form__input-error_active'
-};
-
-export class FormValidator {
+export default class FormValidator {
   constructor(validationConfig, formElement) {
     this._validationConfig = validationConfig;
     this._formElement = formElement;
@@ -78,7 +68,7 @@ export class FormValidator {
   // метод примет параметром элемент формы и добавит её полям нужные обработчики
   _setEventListeners() {
     // Вызовем toggleButtonState, чтобы проверить состояние кнопки в самом начале
-    this.toggleButtonState(this._inputList, this._buttonElement);
+    this.toggleButtonState();
 
     // Обойдём все элементы полученного массива
     this._inputList.forEach((inputElement) => {
@@ -86,12 +76,8 @@ export class FormValidator {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(this._formElement, inputElement);
         // чтобы проверять его при изменении любого из полей
-        this.toggleButtonState(this._inputList, this._buttonElement);
+        this.toggleButtonState();
       });
-    });
-    this._formElement.addEventListener('submit', (evt) => {
-      // У каждой формы отменим стандартное поведение
-      evt.preventDefault();
     });
   };
 
