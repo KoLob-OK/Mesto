@@ -2,6 +2,8 @@ import {initialCards} from "./initialCards.js";
 
 import Card from './Card.js';
 
+import Section from './Section.js';
+
 import FormValidator from './FormValidator.js';
 
 const selectors = {
@@ -97,13 +99,6 @@ const addCard = (name, link) => {
   cardsList.prepend(createCard(name, link));
 };
 
-// Функция формирования карточек из массива
-const renderInitialCards = (array) => {
-  array.forEach((card) => {
-    addCard(card.name, card.link);
-  })
-};
-
 /*---------------------------------------------------------------------------------------*/
 
 // функция закрытия попапа
@@ -173,9 +168,6 @@ const handleAddFormSubmit = (evt) => {
   formAddCardVal.toggleButtonState();
 }
 
-// вызываем функцию формирования карточек из массива с аргументом нашего массива для добавления на страницу
-renderInitialCards(initialCards);
-
 // слушаем кнопку редактирования профиля пользователя
 popupEditProfileButton.addEventListener('click', openEditProfilePopup);
 // слушаем кнопку закрытия попапа редактирования профиля пользователя
@@ -190,13 +182,25 @@ popupCloseAddCardButton.addEventListener('click', () => closePopup(popupAddCard)
 // Submit формы карточки
 formAddCardSubmit.addEventListener('submit', handleAddFormSubmit);
 
+// создаем экземпляр класса FormValidator для формы редактирования профиля
 const formEditProfileVal = new FormValidator(validationConfig, formEditProfileSubmit);
 formEditProfileVal.enableValidation();
 
+// создаем экземпляр класса FormValidator для формы добавления карточки
 const formAddCardVal = new FormValidator(validationConfig, formAddCardSubmit);
 formAddCardVal.enableValidation();
 
+// создаем экземпляр класса Section для отображения карточек на странице
+const initialCardsList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    initialCardsList.addItem(createCard(item.name, item.link));
+  },
+}, cardsList);
 
-export {selectors, classAddRemove, initialCards, popupEditProfile, popupEditProfileButton, popupCloseButton, formEditProfileSubmit, nameInput, jobInput, profileName,
+// рендерим массив карточек на страницу
+initialCardsList.renderItems();
+
+export {selectors, classAddRemove, popupEditProfile, popupEditProfileButton, popupCloseButton, formEditProfileSubmit, nameInput, jobInput, profileName,
   profileJob, popupAddCard, popupAddCardButton, popupCloseAddCardButton, formAddCardSubmit, cardsList, cardTemplate, cardNameInput, cardLinkInput,
   popupExpandPic, popupCloseExpandPicButton, popupImage, popupCaption, openPopup, closePopup};
