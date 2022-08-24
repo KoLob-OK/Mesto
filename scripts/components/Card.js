@@ -1,4 +1,6 @@
-import {selectors, classAddRemove, popupExpandPic, popupCloseExpandPicButton, popupImage, popupCaption, openPopup, closePopup} from './index.js';
+import {openPopup, closePopup} from '../pages/index.js';
+import {selectors, classAddRemove, popupExpandPic, popupCloseExpandPicButton, popupImage, popupCaption} from '../utils/constants.js';
+
 
 
 export default class Card {
