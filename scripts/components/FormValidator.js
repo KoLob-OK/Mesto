@@ -83,7 +83,7 @@ export default class FormValidator {
 
   // метод валидации находит все формы на странице и обрабатывает их
   enableValidation() {
-        // Для каждого элемента вызываем функцию слушателя событий
-        this._setEventListeners();
-      };
+    // Для каждого элемента вызываем функцию слушателя событий
+    this._setEventListeners();
+  };
 }
