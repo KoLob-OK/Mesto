@@ -8,7 +8,8 @@ import {
   popupEditProfile,
   profileJob,
   profileName,
-  selectors
+  selectors,
+  validationConfig
 } from "./constants.js";
 import Card from "../components/Card.js";
 
@@ -22,6 +23,7 @@ const openPopup = (popup) => {
 const closePopup = (popup) => {
   popup.classList.remove(classAddRemove.popupOpenClose);
   document.removeEventListener(`keydown`, closePopupByPressEscape);
+  disableButtons();
 }
 
 // функция закрытия попапа по клику вне окна попапа
@@ -38,6 +40,13 @@ const closePopupByPressEscape = (e) => {
     const openedPopup = document.querySelector(selectors.popup);
     closePopup(openedPopup);
   }
+};
+
+const disableButtons = () => {
+  const buttons = document.querySelectorAll(validationConfig.formSubmit);
+  buttons.forEach((item) => {
+    item.setAttribute("disabled", "disabled");
+  });
 };
 
 // функция создания элемента карточки
