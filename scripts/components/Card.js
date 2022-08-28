@@ -1,22 +1,20 @@
-import {openPopup, closePopup} from '../pages/index.js';
 import {
   selectors,
-  classAddRemove,
-  popupExpandPic,
-  popupCloseExpandPicButton,
-  popupImage,
-  popupCaption
+  classAddRemove
 } from '../utils/constants.js';
 
 
 export default class Card {
-  constructor(name, link, cardSelector) {
-    this._container = document.querySelector(cardSelector);
-    this._name = name;
-    this._link = link;
+  // создаем объект с двумя ключами (данные и функцией открывания
+  // попапа с картинкой при клике на карточку) и селектор карточки
+  constructor({ data, handleCardClick }, cardSelector) {
+    this._name = data.name;
+    this._link = data.link;
+    this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
   }
 
+  // метод возвращает элемент карточки
   _getTemplate() {
     const cardElement = document
       .querySelector(this._cardSelector)
@@ -27,60 +25,52 @@ export default class Card {
     return cardElement;
   }
 
-  // метод слушателя кнопки "лайк"
+  // метод - обработчик (колбэк) слушателя клика по кнопке "лайк"
   _handleLikeCard() {
     const cardLikeButton = this._element.querySelector(selectors.buttonLike);
     cardLikeButton.classList.toggle(classAddRemove.like);
   }
 
-  // метод слушателя кнопки "удалить"
+  // метод - обработчик (колбэк) слушателя клика по кнопке "удалить"
   _handleDeleteCard() {
     this._element.remove();
     this._element = null;
   }
 
-  // метод слушателя открытия попапа просмотра изображения
+  // метод - обработчик (колбэк) слушателя клика по изображению
   _handleOpenExpandPicPopup() {
-    popupImage.src = this._link;
-    popupCaption.textContent = this._name;
-    popupImage.alt = this._name;
-    openPopup(popupExpandPic);
+    this._handleCardClick(this._name, this._link);
   }
 
-  // метод слушателя закрытия попапа просмотра изображения
-  _handleCloseExpandPicPopup() {
-    popupImage.src = '';
-    popupImage.textContent = '';
-    closePopup(popupExpandPic);
-  }
-
+  // метод слушателей событий
   _setEventListeners() {
-    // открытие попапа просмотра изображения кликом по изображению
+    // слушатель клика по изображению
     this._element.querySelector(selectors.cardImg).addEventListener('click', () => {
       this._handleOpenExpandPicPopup();
     })
-    // закрытие попапа просмотра изображения кликом на кнопку закрытия
-    popupCloseExpandPicButton.addEventListener('click', () => {
-      this._handleCloseExpandPicPopup();
-    })
-    // слушатель кнопки удаления карточки
+    // слушатель клика по кнопке удаления карточки
     this._element.querySelector(selectors.buttonDel).addEventListener('click', () => {
       this._handleDeleteCard();
     })
-    // слушатель кнопки лайк
+    // слушатель клика по кнопке лайк
     this._element.querySelector(selectors.buttonLike).addEventListener('click', () => {
       this._handleLikeCard();
     })
   }
 
-  // метод создания готовой карточки
+  // метод создания готового элемента карточки
   generateCard() {
+    // создаем элемент разметки карточки
     this._element = this._getTemplate();
+    // устанавливаем слушатели для карточки
     this._setEventListeners();
 
+    // задаем значения (название, ссылка, alt)
     this._element.querySelector(selectors.cardImg).src = this._link;
+    this._element.querySelector(selectors.cardImg).alt = this._name;
     this._element.querySelector(selectors.cardName).textContent = this._name;
 
+    // возвращаем готовый элемент карточки
     return this._element;
   }
 }
