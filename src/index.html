@@ -7,16 +7,16 @@
   <meta name="keywords"
         content="Россия, путешествия, галерея, фото, место, обучение, проект, КоЛобОК">
   <meta name="author" content="KoLobOK">
-  <link rel="shortcut icon" href="./images/favicon.png" type="image/png">
+  <link rel="shortcut icon" href="<%=require('./images/favicon.png')%>" type="image/png">
   <title>Место</title>
-  <link rel="stylesheet" href="./pages/index.css">
+<!--  <link rel="stylesheet" href="./pages/index.css">-->
 </head>
 
 <body class="page">
 
  <header class="header page__header">
    <img class="header__logo"
-        src="./images/logo-place.svg"
+        src="<%=require('./images/logo-place.svg')%>"
         alt="Логотип с картой России"
    />
  </header>
@@ -25,7 +25,7 @@
 
    <section class="profile content__profile">
      <div class="profile__card">
-       <img class="profile__avatar" src="images/ava.jpg" alt="Ваш аватар">
+       <img class="profile__avatar" src="<%=require('./images/ava.jpg')%>" alt="Ваш аватар">
        <div class="profile__info">
          <h1 class="profile__title">Zorro from SPb</h1>
          <button class="profile__edit-button"
@@ -154,7 +154,7 @@
    </li>
  </template>
 
-<script type="module" src="scripts/pages/index.js"></script>
+<!--<script type="module" src="scripts/pages/index.js"></script>-->
 
 </body>
 </html>

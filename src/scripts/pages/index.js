@@ -1,3 +1,5 @@
+import '../../pages/index.css';
+
 import {initialCards} from '../utils/initialCards.js';
 
 import {
@@ -7,7 +9,6 @@ import {
   formEditProfileSubmit,
   popupAddCardButton,
   formAddCardSubmit,
-  cardsList,
   nameInput,
   jobInput
 } from '../utils/constants.js';
@@ -21,11 +22,9 @@ import PopupWithImage from "../components/PopupWithImage.js";
 
 // создаем экземпляр класса FormValidator для формы редактирования профиля
 const formEditProfileVal = new FormValidator(validationConfig, formEditProfileSubmit);
-formEditProfileVal.enableValidation();
 
 // создаем экземпляр класса FormValidator для формы добавления карточки
 const formAddCardVal = new FormValidator(validationConfig, formAddCardSubmit);
-formAddCardVal.enableValidation();
 
 
 /*+++++++++++++++++++++++Работа с карточками++++++++++++++++++++++++*/
@@ -35,36 +34,39 @@ const initialCardsList = new Section({
   renderer: (item) => {
     initialCardsList.addItem(createCard(item));
   },
-}, cardsList);
+}, '.elements__list');
 
 // функция создания элемента карточки
 const createCard = (data) => {
   const card = new Card({
     data: data,
     handleCardClick: (name, link) => {
-      const viewImagePopup = new PopupWithImage(selectors.popupExpandPic);
-      viewImagePopup.setEventListeners();
-      viewImagePopup.open(name, link);
+      popupExpandPic.open(name, link);
     }
   }, selectors.cardTemplate);
   const cardElement = card.generateCard();
   return cardElement;
 };
 
+// создаем экземпляр класса просмотра фото
+const popupExpandPic = new PopupWithImage(selectors.popupExpandPic);
+// слушаем события
+popupExpandPic.setEventListeners();
 
 // создаем экземпляр класса попапа с формой добавления новой карточки
-const addCardPopup = new PopupWithForm({
+const popupAddCard = new PopupWithForm({
   popupSelector: selectors.popupAddCard,
   handleFormSubmit: (formData) => {
     initialCardsList.addItem(createCard(formData));
-    addCardPopup.close();
+    popupAddCard.close();
   }
 });
 // устанавливаем слушатели для формы
-addCardPopup.setEventListeners();
+popupAddCard.setEventListeners();
 // Обработчик кнопки добавления карточки
 popupAddCardButton.addEventListener('click', () => {
-  addCardPopup.open();
+  formAddCardVal.enableValidation();
+  popupAddCard.open();
 });
 
 // рендерим массив карточек на страницу
@@ -79,23 +81,27 @@ const userInfo = new UserInfo({
 });
 
 // создаем экземпляр класса попапа с формой редактирования профиля
-const editProfilePopup = new PopupWithForm({
+const popupEditProfile = new PopupWithForm({
   popupSelector: selectors.popupEditProfile,
-  handleFormSubmit: (dataForm) => {
-    userInfo.setUserInfo(dataForm);
-    editProfilePopup.close();
+  handleFormSubmit: (userdata) => {
+    userInfo.setUserInfo({
+      username: userdata.username,
+      job: userdata.job
+    });
+    popupEditProfile.close();
   }
 });
 
 // устанавливаем слушатели для формы
-editProfilePopup.setEventListeners();
+popupEditProfile.setEventListeners();
 
 // Обработчик кнопки Edit попапа редактирования профиля
 popupEditProfileButton.addEventListener('click', () => {
   const info = userInfo.getUserInfo();
-    nameInput.value = info.username;
-    jobInput.value = info.job;
-  editProfilePopup.open();
+  nameInput.value = info.username;
+  jobInput.value = info.job;
+  formEditProfileVal.enableValidation();
+  popupEditProfile.open();
 });
 /*------------------------Работа с профилем-------------------------*/
 

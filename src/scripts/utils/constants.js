@@ -43,23 +43,17 @@ const validationConfig = {
 const popupEditProfile = document.querySelector(selectors.popupEditProfile);
 // ищем кнопку для открытия попапа редактирования профиля
 const popupEditProfileButton = document.querySelector(selectors.buttonEdit);
-// ищем кнопку закрытия попапа редактирования профиля
-const popupCloseButton = popupEditProfile.querySelector(selectors.buttonClose);
 // ищем форму попапа редактирования профиля
 const formEditProfileSubmit = popupEditProfile.querySelector(selectors.form);
 // ищем инпуты (переменные) формы попапа редактирования профиля
 const nameInput = popupEditProfile.querySelector(selectors.inputUsername);
 const jobInput = popupEditProfile.querySelector(selectors.inputJob);
-// задаем переменные, в которые будут сохраняться данные из формы
-const profileName = document.querySelector(selectors.userName);
-const profileJob = document.querySelector(selectors.userJob);
 
 // ищем попап добавления карточки
 const popupAddCard = document.querySelector(selectors.popupAddCard);
 // ищем кнопку открытия попапа добавления карточки
 const popupAddCardButton = document.querySelector(selectors.buttonAdd);
-// ищем кнопку для закрытия попапа добавления карточки
-const popupCloseAddCardButton = popupAddCard.querySelector(selectors.buttonClose);
+
 // ищем форму попапа добавления карточки
 const formAddCardSubmit = popupAddCard.querySelector(selectors.form);
 
@@ -67,19 +61,7 @@ const formAddCardSubmit = popupAddCard.querySelector(selectors.form);
 const cardsList = document.querySelector(selectors.cardsList);
 // ищем шаблон карточки
 const cardTemplate = document.querySelector(selectors.cardTemplate).content;
-// ищем инпуты (переменные) формы попапа добавления карточки
-const cardNameInput = formAddCardSubmit.querySelector(selectors.inputImgName);
-const cardLinkInput = formAddCardSubmit.querySelector(selectors.inputImgLink);
 
-// ищем попап просмотра фото
-const popupExpandPic = document.querySelector(selectors.popupExpandPic);
-// ищем кнопку закрытия просмотра фото
-const popupCloseExpandPicButton = popupExpandPic.querySelector(selectors.buttonClose);
-// ищем фото попапа просмотра
-const popupImage = popupExpandPic.querySelector(selectors.fullSizeImg);
-// ищем название фото попапа просмотра
-const popupCaption = popupExpandPic.querySelector(selectors.fullSizeImgCaption);
 
-export {selectors, classAddRemove, validationConfig, popupEditProfile, popupEditProfileButton, popupCloseButton, formEditProfileSubmit, nameInput, jobInput, profileName,
-  profileJob, popupAddCard, popupAddCardButton, popupCloseAddCardButton, formAddCardSubmit, cardsList, cardTemplate, cardNameInput, cardLinkInput,
-  popupExpandPic, popupCloseExpandPicButton, popupImage, popupCaption};
+export {selectors, classAddRemove, validationConfig, popupEditProfile, popupEditProfileButton, formEditProfileSubmit, nameInput, jobInput,
+  popupAddCard, popupAddCardButton, formAddCardSubmit, cardsList, cardTemplate};

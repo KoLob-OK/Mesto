@@ -1,6 +1,6 @@
 ### Четвертый-n(ый) практический проект обучения студентов от Яндекс.Практикум
 
-[![LOGO](./images/logo-black.svg)](https://kolob-ok.github.io/mesto/ "Проект Яндекса")
+[![LOGO](src/images/logo-black.svg)](https://kolob-ok.github.io/mesto/ "Проект Яндекса")
 # "Место" (Mesto)
 
 __________
