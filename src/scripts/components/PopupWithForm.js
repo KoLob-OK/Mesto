@@ -1,5 +1,13 @@
 import Popup from "./Popup.js";
-import {validationConfig} from "../utils/constants.js";
+
+const validationConfig = {
+  form: '.form',
+  formInput: '.form__input',
+  formSubmit: '.form__submit',
+  formSet: '.form__set',
+  inputError: 'form__input_type_error',
+  inputErrorActive: 'form__input-error_active'
+};
 
 // создаем класс PopupWithForm, родителем которого является класс Popup
 export default class PopupWithForm extends Popup {
@@ -9,7 +17,7 @@ export default class PopupWithForm extends Popup {
     // задаем колбэк сабмита формы
     this._handleFormSubmit = handleFormSubmit;
     // задаем переменные - ищем форму, кладем в переменную popupForm
-    this._popupForm = this._popupSelector.querySelector(validationConfig.form);
+    this._popupForm = this._popup.querySelector(validationConfig.form);
     // задаем переменные - ищем все инпуты формы, кладем их в переменную inputList
     this._inputList = this._popupForm.querySelectorAll(validationConfig.formInput);
   }
@@ -42,18 +50,11 @@ export default class PopupWithForm extends Popup {
     })
   }
 
-  _disableButtons() {
-    document.querySelectorAll(validationConfig.formSubmit).forEach((item) => {
-      item.setAttribute("disabled", "disabled");
-    });
-  }
-
   // перезаписываем родительский метод close()
   close() {
     // используем метод родителя close()
     super.close();
     // сбрасываем поля формы
     this._popupForm.reset();
-    this._disableButtons();
   }
 }

@@ -8,7 +8,7 @@ export default class FormValidator {
   };
 
   // метод добавления класса с ошибкой
-  _showInputError(formElement, inputElement, errorMessage) {
+  _showInputError(inputElement, errorMessage) {
     // Находим элемент ошибки внутри самой функции на основе уникального класса
     const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
     // Добавляем класс нижней красной границы
@@ -20,7 +20,7 @@ export default class FormValidator {
   };
 
   // метод удаления класса с ошибкой
-  _hideInputError(formElement, inputElement) {
+  _hideInputError(inputElement) {
     // Находим элемент ошибки
     const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
     // Скрываем нижнюю красную границу
@@ -32,14 +32,14 @@ export default class FormValidator {
   };
 
   // метод возвращает или убирает текст ошибки в зависимости от валидности поля ввода
-  _checkInputValidity(formElement, inputElement) {
+  _checkInputValidity(inputElement) {
     // При условии, если поле ввода не валидно
     if (!inputElement.validity.valid) {
       // выполнить функцию показа ошибки
-      this._showInputError(this._formElement, inputElement, inputElement.validationMessage);
+      this._showInputError(inputElement, inputElement.validationMessage);
     } else {
       // иначе выполнить функцию скрытия ошибки
-      this._hideInputError(this._formElement, inputElement);
+      this._hideInputError(inputElement);
     }
   };
 
@@ -56,7 +56,7 @@ export default class FormValidator {
   // метод принимает массив полей ввода и элемент кнопки, состояние которой нужно менять
   toggleButtonState() {
     // Если есть хотя бы один невалидный инпут
-    if (this._hasInvalidInput(this._inputList)) {
+    if (this._hasInvalidInput()) {
       // сделай кнопку неактивной
       this._buttonElement.setAttribute('disabled', 'disabled');
     } else {
@@ -64,6 +64,7 @@ export default class FormValidator {
       this._buttonElement.removeAttribute('disabled');
     }
   };
+
 
   // метод примет параметром элемент формы и добавит её полям нужные обработчики
   _setEventListeners() {
@@ -74,9 +75,10 @@ export default class FormValidator {
     this._inputList.forEach((inputElement) => {
       // каждому полю добавим обработчик события input
       inputElement.addEventListener('input', () => {
-        this._checkInputValidity(this._formElement, inputElement);
+        this._checkInputValidity(inputElement);
         // чтобы проверять его при изменении любого из полей
         this.toggleButtonState();
+
       });
     });
   };

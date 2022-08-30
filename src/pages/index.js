@@ -1,4 +1,4 @@
-import '../../pages/index.css';
+import './index.css';
 
 import {initialCards} from '../utils/initialCards.js';
 
@@ -13,18 +13,19 @@ import {
   jobInput
 } from '../utils/constants.js';
 
-import Card from '../components/Card.js';
-import Section from '../components/Section.js';
-import FormValidator from '../components/FormValidator.js';
-import PopupWithForm from "../components/PopupWithForm.js";
-import UserInfo from "../components/UserInfo.js";
-import PopupWithImage from "../components/PopupWithImage.js";
+import Card from '../scripts/components/Card.js';
+import Section from '../scripts/components/Section.js';
+import FormValidator from '../scripts/components/FormValidator.js';
+import PopupWithForm from "../scripts/components/PopupWithForm.js";
+import UserInfo from "../scripts/components/UserInfo.js";
+import PopupWithImage from "../scripts/components/PopupWithImage.js";
 
 // создаем экземпляр класса FormValidator для формы редактирования профиля
 const formEditProfileVal = new FormValidator(validationConfig, formEditProfileSubmit);
-
+formEditProfileVal.enableValidation();
 // создаем экземпляр класса FormValidator для формы добавления карточки
 const formAddCardVal = new FormValidator(validationConfig, formAddCardSubmit);
+formAddCardVal.enableValidation();
 
 
 /*+++++++++++++++++++++++Работа с карточками++++++++++++++++++++++++*/
@@ -65,7 +66,7 @@ const popupAddCard = new PopupWithForm({
 popupAddCard.setEventListeners();
 // Обработчик кнопки добавления карточки
 popupAddCardButton.addEventListener('click', () => {
-  formAddCardVal.enableValidation();
+  formAddCardVal.toggleButtonState();
   popupAddCard.open();
 });
 
@@ -100,7 +101,6 @@ popupEditProfileButton.addEventListener('click', () => {
   const info = userInfo.getUserInfo();
   nameInput.value = info.username;
   jobInput.value = info.job;
-  formEditProfileVal.enableValidation();
   popupEditProfile.open();
 });
 /*------------------------Работа с профилем-------------------------*/

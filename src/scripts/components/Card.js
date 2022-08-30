@@ -1,7 +1,33 @@
-import {
-  selectors,
-  classAddRemove
-} from '../utils/constants.js';
+const selectors = {
+  popupEditProfile: '.popup_type_profile-edit',
+  popupAddCard: '.popup_type_add-card',
+  popupExpandPic: '.popup_type_expand-image',
+  inputUsername: '.form__input_type_username',
+  inputJob: '.form__input_type_job',
+  inputImgName: '.form__input_type_name',
+  inputImgLink: '.form__input_type_link',
+  userName: '.profile__title',
+  userJob: '.profile__description',
+  buttonEdit: '.profile__edit-button',
+  buttonAdd: '.profile__add-button',
+  buttonClose: '.popup__close',
+  buttonLike: '.element__like-button',
+  buttonDel: '.element__del-button',
+  form: '.popup__form',
+  cardsList: '.elements__list',
+  cardElement: '.element',
+  cardImg: '.element__image',
+  cardName: '.element__title',
+  cardTemplate: '.element-tmp',
+  fullSizeImg: '.popup__image',
+  fullSizeImgCaption: '.popup__caption',
+  popup: '.popup_opened'
+};
+
+const classAddRemove = {
+  like: 'element__like-button_active',
+  popupOpenClose: 'popup_opened'
+};
 
 
 export default class Card {
@@ -27,8 +53,7 @@ export default class Card {
 
   // метод - обработчик (колбэк) слушателя клика по кнопке "лайк"
   _handleLikeCard() {
-    const cardLikeButton = this._element.querySelector(selectors.buttonLike);
-    cardLikeButton.classList.toggle(classAddRemove.like);
+    this._cardLikeButton.classList.toggle(classAddRemove.like);
   }
 
   // метод - обработчик (колбэк) слушателя клика по кнопке "удалить"
@@ -62,12 +87,16 @@ export default class Card {
   generateCard() {
     // создаем элемент разметки карточки
     this._element = this._getTemplate();
+    // находим фото
+    this._cardImg = this._element.querySelector(selectors.cardImg);
+    // находим кнопку лайка
+    this._cardLikeButton = this._element.querySelector(selectors.buttonLike);
     // устанавливаем слушатели для карточки
     this._setEventListeners();
 
     // задаем значения (название, ссылка, alt)
-    this._element.querySelector(selectors.cardImg).src = this._link;
-    this._element.querySelector(selectors.cardImg).alt = this._name;
+    this._cardImg.src = this._link;
+    this._cardImg.alt = this._name;
     this._element.querySelector(selectors.cardName).textContent = this._name;
 
     // возвращаем готовый элемент карточки
