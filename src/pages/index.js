@@ -74,8 +74,8 @@ popupAddCard.setEventListeners();
 
 // Обработчик кнопки добавления карточки
 popupAddCardButton.addEventListener('click', () => {
-  // Вызовем toggleButtonState для формы, чтобы проверить состояние кнопки в самом начале
-  formAddCardVal.toggleButtonState();
+  // Вызовем resetValidation для формы, чтобы сбросить валидацию
+  formAddCardVal.resetValidation();
   popupAddCard.open();
 });
 
@@ -113,6 +113,7 @@ popupEditProfileButton.addEventListener('click', () => {
   const info = userInfo.getUserInfo();
   nameInput.value = info.username;
   jobInput.value = info.job;
+  formEditProfileVal.resetValidation();
   popupEditProfile.open();
 });
 

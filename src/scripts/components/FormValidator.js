@@ -54,7 +54,7 @@ export default class FormValidator {
   };
 
   // метод принимает массив полей ввода и элемент кнопки, состояние которой нужно менять
-  toggleButtonState() {
+  _toggleButtonState() {
     // Если есть хотя бы один невалидный инпут
     if (this._hasInvalidInput()) {
       // сделай кнопку неактивной
@@ -69,7 +69,7 @@ export default class FormValidator {
   // метод примет параметром элемент формы и добавит её полям нужные обработчики
   _setEventListeners() {
     // Вызовем toggleButtonState, чтобы проверить состояние кнопки в самом начале
-    this.toggleButtonState();
+    this._toggleButtonState();
 
     // Обойдём все элементы полученного массива
     this._inputList.forEach((inputElement) => {
@@ -77,9 +77,17 @@ export default class FormValidator {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
         // чтобы проверять его при изменении любого из полей
-        this.toggleButtonState();
+        this._toggleButtonState();
 
       });
+    });
+  };
+
+  resetValidation() {
+    this._toggleButtonState();
+
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement)
     });
   };
 
