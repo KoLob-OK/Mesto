@@ -21,10 +21,7 @@ const selectors = {
   cardTemplate: '.element-tmp',
   fullSizeImg: '.popup__image',
   fullSizeImgCaption: '.popup__caption',
-  popup: '.popup_opened'
-};
-
-const classAddRemove = {
+  popup: '.popup_opened',
   like: 'element__like-button_active',
   popupOpenClose: 'popup_opened'
 };
@@ -63,5 +60,5 @@ const cardsList = document.querySelector(selectors.cardsList);
 const cardTemplate = document.querySelector(selectors.cardTemplate).content;
 
 
-export {selectors, classAddRemove, validationConfig, popupEditProfile, popupEditProfileButton, formEditProfileSubmit, nameInput, jobInput,
+export {selectors, validationConfig, popupEditProfile, popupEditProfileButton, formEditProfileSubmit, nameInput, jobInput,
   popupAddCard, popupAddCardButton, formAddCardSubmit, cardsList, cardTemplate};

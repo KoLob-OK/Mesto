@@ -50,13 +50,14 @@ const createCard = (data) => {
     handleCardClick: (name, link) => {
       popupExpandPic.open(name, link);
     }
-  }, selectors.cardTemplate);
+  }, selectors);
   const cardElement = card.generateCard();
+
   return cardElement;
 };
 
 // создаем экземпляр класса просмотра фото
-const popupExpandPic = new PopupWithImage(selectors.popupExpandPic);
+const popupExpandPic = new PopupWithImage(selectors.popupExpandPic, selectors);
 // слушаем события
 popupExpandPic.setEventListeners();
 
@@ -67,7 +68,7 @@ const popupAddCard = new PopupWithForm({
     initialCardsList.addItem(createCard(formData));
     popupAddCard.close();
   }
-});
+}, selectors, validationConfig);
 
 // устанавливаем слушатели для формы
 popupAddCard.setEventListeners();
@@ -103,7 +104,7 @@ const popupEditProfile = new PopupWithForm({
     });
     popupEditProfile.close();
   }
-});
+}, selectors, validationConfig);
 
 // устанавливаем слушатели для формы
 popupEditProfile.setEventListeners();

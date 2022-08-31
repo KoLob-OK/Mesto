@@ -1,19 +1,10 @@
 import Popup from "./Popup.js";
 
-const validationConfig = {
-  form: '.form',
-  formInput: '.form__input',
-  formSubmit: '.form__submit',
-  formSet: '.form__set',
-  inputError: 'form__input_type_error',
-  inputErrorActive: 'form__input-error_active'
-};
-
 // создаем класс PopupWithForm, родителем которого является класс Popup
 export default class PopupWithForm extends Popup {
-  constructor({ popupSelector, handleFormSubmit }) {
+  constructor({ popupSelector, handleFormSubmit }, selectors, validationConfig) {
     // наследуем селектор класса из родителя
-    super(popupSelector);
+    super(popupSelector, selectors);
     // задаем колбэк сабмита формы
     this._handleFormSubmit = handleFormSubmit;
     // задаем переменные - ищем форму, кладем в переменную popupForm
