@@ -20,6 +20,9 @@ import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import UserInfo from "../scripts/components/UserInfo.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
 
+
+/*++++++++++++++++Валидация+++++++++++++++++++++*/
+
 // создаем экземпляр класса FormValidator для формы редактирования профиля
 const formEditProfileVal = new FormValidator(validationConfig, formEditProfileSubmit);
 formEditProfileVal.enableValidation();
@@ -27,8 +30,11 @@ formEditProfileVal.enableValidation();
 const formAddCardVal = new FormValidator(validationConfig, formAddCardSubmit);
 formAddCardVal.enableValidation();
 
+/*----------------Валидация---------------------*/
+
 
 /*+++++++++++++++++++++++Работа с карточками++++++++++++++++++++++++*/
+
 // создаем экземпляр класса Section для отображения карточек на странице
 const initialCardsList = new Section({
   items: initialCards,
@@ -62,19 +68,25 @@ const popupAddCard = new PopupWithForm({
     popupAddCard.close();
   }
 });
+
 // устанавливаем слушатели для формы
 popupAddCard.setEventListeners();
+
 // Обработчик кнопки добавления карточки
 popupAddCardButton.addEventListener('click', () => {
+  // Вызовем toggleButtonState для формы, чтобы проверить состояние кнопки в самом начале
   formAddCardVal.toggleButtonState();
   popupAddCard.open();
 });
 
 // рендерим массив карточек на страницу
 initialCardsList.renderItems();
+
 /*-----------------------Работа с карточками------------------------*/
 
+
 /*++++++++++++++++++++++++Работа с профилем+++++++++++++++++++++++++*/
+
 // создаем экземпляр класса UserInfo для получения данных пользователя, который будем использовать в форме попапа редактирования профиля
 const userInfo = new UserInfo({
   username: selectors.userName,
@@ -103,6 +115,7 @@ popupEditProfileButton.addEventListener('click', () => {
   jobInput.value = info.job;
   popupEditProfile.open();
 });
+
 /*------------------------Работа с профилем-------------------------*/
 
 
