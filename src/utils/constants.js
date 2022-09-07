@@ -2,6 +2,7 @@ const selectors = {
   popupEditProfile: '.popup_type_profile-edit',
   popupAddCard: '.popup_type_add-card',
   popupExpandPic: '.popup_type_expand-image',
+  popupDelCard: '.popup_type_del-card',
   inputUsername: '.form__input_type_username',
   inputJob: '.form__input_type_job',
   inputImgName: '.form__input_type_name',
