@@ -1,6 +1,4 @@
-import './index.css';
-
-import {initialCards} from '../utils/initialCards.js';
+import '../pages/index.css';
 
 import {
   selectors,
@@ -13,12 +11,38 @@ import {
   jobInput
 } from '../utils/constants.js';
 
+import Api from '../scripts/components/Api.js';
 import Card from '../scripts/components/Card.js';
 import Section from '../scripts/components/Section.js';
 import FormValidator from '../scripts/components/FormValidator.js';
-import PopupWithForm from "../scripts/components/PopupWithForm.js";
-import UserInfo from "../scripts/components/UserInfo.js";
-import PopupWithImage from "../scripts/components/PopupWithImage.js";
+import PopupWithForm from '../scripts/components/PopupWithForm.js';
+import UserInfo from '../scripts/components/UserInfo.js';
+import PopupWithImage from '../scripts/components/PopupWithImage.js';
+
+
+/*++++++++++++++++++++API+++++++++++++++++++++++*/
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-50',
+  headers: {
+    authorization: '3da86922-f76f-47f7-81bc-c1b3b90197e4',
+    'Content-Type': 'application/json'
+  }
+});
+
+let userId;
+
+// Загрузка initialCards и данных о пользователе с сервера
+Promise.all([api.getUserData(), api.getInitialCards()])
+  .then(([userData, initialCards]) => {
+    userInfo.setUserInfo(userData);
+    userId = userData._id;
+    initialCardsList.renderItems(initialCards);
+
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+  });
+/*--------------------API-----------------------*/
 
 
 /*++++++++++++++++Валидация+++++++++++++++++++++*/
@@ -35,14 +59,6 @@ formAddCardVal.enableValidation();
 
 /*+++++++++++++++++++++++Работа с карточками++++++++++++++++++++++++*/
 
-// создаем экземпляр класса Section для отображения карточек на странице
-const initialCardsList = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    initialCardsList.addItem(createCard(item));
-  },
-}, '.elements__list');
-
 // функция создания элемента карточки
 const createCard = (data) => {
   const card = new Card({
@@ -51,9 +67,8 @@ const createCard = (data) => {
       popupExpandPic.open(name, link);
     }
   }, selectors);
-  const cardElement = card.generateCard();
 
-  return cardElement;
+  return card.generateCard();
 };
 
 // создаем экземпляр класса просмотра фото
@@ -61,12 +76,25 @@ const popupExpandPic = new PopupWithImage(selectors.popupExpandPic, selectors);
 // слушаем события
 popupExpandPic.setEventListeners();
 
+// создаем экземпляр класса Section для отображения карточек на странице
+const initialCardsList = new Section({
+  renderer: (card) => {
+    initialCardsList.addItem(createCard(card));
+  },
+}, selectors.cardsList);
+
 // создаем экземпляр класса попапа с формой добавления новой карточки
 const popupAddCard = new PopupWithForm({
   popupSelector: selectors.popupAddCard,
   handleFormSubmit: (formData) => {
-    initialCardsList.addItem(createCard(formData));
-    popupAddCard.close();
+    api.addCard(formData)
+      .then((formData) => {
+        initialCardsList.addItem(createCard(formData));
+        popupAddCard.close();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
   }
 }, selectors, validationConfig);
 
@@ -80,8 +108,8 @@ popupAddCardButton.addEventListener('click', () => {
   popupAddCard.open();
 });
 
-// рендерим массив карточек на страницу
-initialCardsList.renderItems();
+/*// рендерим массив карточек на страницу
+initialCardsList.renderItems();*/
 
 /*-----------------------Работа с карточками------------------------*/
 
@@ -97,12 +125,15 @@ const userInfo = new UserInfo({
 // создаем экземпляр класса попапа с формой редактирования профиля
 const popupEditProfile = new PopupWithForm({
   popupSelector: selectors.popupEditProfile,
-  handleFormSubmit: (userdata) => {
-    userInfo.setUserInfo({
-      username: userdata.username,
-      job: userdata.job
-    });
-    popupEditProfile.close();
+  handleFormSubmit: (dataForm) => {
+    api.changeUserData(dataForm)
+      .then((dataForm) => {
+        userInfo.setUserInfo(dataForm);
+        popupEditProfile.close();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
   }
 }, selectors, validationConfig);
 

@@ -1,22 +1,23 @@
 export default class Card {
   // создаем объект с двумя ключами (данные и функцией открывания
   // попапа с картинкой при клике на карточку) и селектор карточки
-  constructor({ data, handleCardClick }, selectors) {
+  constructor({ data, handleCardClick, api, userID }, selectors) {
     this._name = data.name;
     this._link = data.link;
+    this._userID = userID;
     this._handleCardClick = handleCardClick;
     this._selectors = selectors;
   }
 
   // метод возвращает элемент карточки
   _getTemplate() {
-    const cardElement = document
+    this._cardElement = document
       .querySelector(this._selectors.cardTemplate)
       .content
       .querySelector(this._selectors.cardElement)
       .cloneNode(true);
 
-    return cardElement;
+    return this._cardElement;
   }
 
   // метод - обработчик (колбэк) слушателя клика по кнопке "лайк"
