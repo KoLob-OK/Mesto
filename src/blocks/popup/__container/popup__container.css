@@ -1,14 +1,13 @@
 .popup__container {
   max-width: 430px;
   width: 100%;
-  min-height: 330px;
   background: #FFF;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 34px 36px 37px;
+  padding: 36px;
   position: relative;
   box-sizing: border-box;
 }
@@ -17,6 +16,5 @@
   .popup__container {
     width: calc(100% - 2*19px);
     padding: 25px 22px;
-    min-height: 322px;
 }
 }
