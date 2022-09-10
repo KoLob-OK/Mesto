@@ -8,7 +8,7 @@ import {
   popupAddCardButton,
   formAddCardSubmit,
   nameInput,
-  jobInput
+  jobInput, buttonUpdateAvatar, formUpdateAvatar, avatar
 } from '../utils/constants.js';
 
 import Api from '../scripts/components/Api.js';
@@ -53,6 +53,9 @@ formEditProfileVal.enableValidation();
 // создаем экземпляр класса FormValidator для формы добавления карточки
 const formAddCardVal = new FormValidator(validationConfig, formAddCardSubmit);
 formAddCardVal.enableValidation();
+// создаем экземпляр класса FormValidator для формы обновления аватара
+const formUpdateAvatarVal = new FormValidator(validationConfig, formUpdateAvatar);
+formUpdateAvatarVal.enableValidation();
 
 /*----------------Валидация---------------------*/
 
@@ -119,7 +122,8 @@ initialCardsList.renderItems();*/
 // создаем экземпляр класса UserInfo для получения данных пользователя, который будем использовать в форме попапа редактирования профиля
 const userInfo = new UserInfo({
   username: selectors.userName,
-  job: selectors.userJob
+  job: selectors.userJob,
+  avatar: selectors.userAvatar
 });
 
 // создаем экземпляр класса попапа с формой редактирования профиля
@@ -136,11 +140,9 @@ const popupEditProfile = new PopupWithForm({
       })
   }
 }, selectors, validationConfig);
-
 // устанавливаем слушатели для формы
 popupEditProfile.setEventListeners();
-
-// Обработчик кнопки Edit попапа редактирования профиля
+// обработчик кнопки Edit попапа редактирования профиля
 popupEditProfileButton.addEventListener('click', () => {
   const info = userInfo.getUserInfo();
   nameInput.value = info.username;
@@ -149,9 +151,28 @@ popupEditProfileButton.addEventListener('click', () => {
   popupEditProfile.open();
 });
 
+
+// создаем экземпляр класса попапа с формой обновления аватара
+const popupUpdateAvatar = new PopupWithForm({
+  popupSelector: selectors.popupUpdateAvatar,
+  handleFormSubmit: (data) => {
+    api.updateAvatar(data)
+      .then((data) => {
+        avatar.src = data.avatar;
+        popupUpdateAvatar.close();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+  }
+}, selectors, validationConfig);
+// устанавливаем слушатели для формы
+popupUpdateAvatar.setEventListeners();
+// обработчик кнопки аватара пользователя
+buttonUpdateAvatar.addEventListener('click', () => {
+  // popupUpdateAvatar.toggleButtonState();
+  formUpdateAvatarVal.resetValidation();
+  popupUpdateAvatar.open();
+});
+
 /*------------------------Работа с профилем-------------------------*/
-
-
-
-
-

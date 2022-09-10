@@ -20,7 +20,7 @@
 @media screen and (max-width: 568px) {
   .profile__add-button {
     width: 100%;
-    margin: 36px 0 0; /* вниманию ревьюера! Для исправления неверного отступа удален row-gap: 14px в медиа-запросе для элемента profile */
+    margin: 36px 0 0;
     background-size: 16px;
   }
 }

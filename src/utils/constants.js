@@ -1,5 +1,6 @@
 const selectors = {
   popupEditProfile: '.popup_type_profile-edit',
+  popupUpdateAvatar: '.popup_type_update-avatar',
   popupAddCard: '.popup_type_add-card',
   popupExpandPic: '.popup_type_expand-image',
   popupDelCard: '.popup_type_del-card',
@@ -9,7 +10,9 @@ const selectors = {
   inputImgLink: '.form__input_type_link',
   userName: '.profile__title',
   userJob: '.profile__description',
+  userAvatar: '.profile__avatar',
   buttonEdit: '.profile__edit-button',
+  buttonUpdateAvatar: '.profile__avatar-button',
   buttonAdd: '.profile__add-button',
   buttonClose: '.popup__close',
   buttonLike: '.element__like-button',
@@ -47,6 +50,16 @@ const formEditProfileSubmit = popupEditProfile.querySelector(selectors.form);
 const nameInput = popupEditProfile.querySelector(selectors.inputUsername);
 const jobInput = popupEditProfile.querySelector(selectors.inputJob);
 
+// ищем попап обновления аватара
+const popupUpdateAvatar = document.querySelector(selectors.popupUpdateAvatar);
+// ищем кнопку для открытия попапа обновления аватара
+const buttonUpdateAvatar = document.querySelector(selectors.buttonUpdateAvatar);
+// ищем форму попапа обновления аватара
+const formUpdateAvatar = popupUpdateAvatar.querySelector(selectors.form);
+// ищем картинку с аватаром
+const avatar = document.querySelector(selectors.userAvatar);
+
+
 // ищем попап добавления карточки
 const popupAddCard = document.querySelector(selectors.popupAddCard);
 // ищем кнопку открытия попапа добавления карточки
@@ -61,5 +74,20 @@ const cardsList = document.querySelector(selectors.cardsList);
 const cardTemplate = document.querySelector(selectors.cardTemplate).content;
 
 
-export {selectors, validationConfig, popupEditProfile, popupEditProfileButton, formEditProfileSubmit, nameInput, jobInput,
-  popupAddCard, popupAddCardButton, formAddCardSubmit, cardsList, cardTemplate};
+export {
+  selectors,
+  validationConfig,
+  popupEditProfile,
+  popupEditProfileButton,
+  formEditProfileSubmit,
+  nameInput,
+  jobInput,
+  buttonUpdateAvatar,
+  formUpdateAvatar,
+  avatar,
+  popupAddCard,
+  popupAddCardButton,
+  formAddCardSubmit,
+  cardsList,
+  cardTemplate
+};

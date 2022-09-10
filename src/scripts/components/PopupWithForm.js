@@ -36,8 +36,8 @@ export default class PopupWithForm extends Popup {
       // применяем метод _handleFormSubmit с аргументом
       // в виде метода сбора данных всех полей формы
       this._handleFormSubmit(this._getInputValues());
-      // закрываем попап
-      this.close();
+  /*    // закрываем попап
+      this.close();*/
     })
   }
 

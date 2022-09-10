@@ -98,5 +98,19 @@ export default class Api {
         return this._checkResponse(res)
       });
   }
+
+  // метод обновления аватара пользователя
+  updateAvatar(data) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: data.avatar
+      })
+    })
+      .then(res => {
+        return this._checkResponse(res)
+      });
+  }
 }
 
