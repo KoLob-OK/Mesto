@@ -38,7 +38,6 @@ Promise.all([api.getUserData(), api.getInitialCards()])
     userInfo.setUserInfo(userData);
     userID = userData._id;
     initialCardsList.renderItems(initialCards);
-
   })
   .catch((err) => {
     console.log(`Ошибка: ${err}`);
@@ -85,6 +84,24 @@ const createCard = (data) => {
             console.log(`Ошибка: ${err}`);
           });
       });
+    },
+    handleLikeSet: (cardID) => {
+      api.setLikeCard(cardID)
+        .then((data) => {
+          card.handleLikeCard(data);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
+    },
+    handleLikeRemove: (cardID) => {
+      api.delLikeCard(cardID)
+        .then((data) => {
+          card.handleLikeCard(data);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
     }
   }, selectors);
 

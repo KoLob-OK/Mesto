@@ -62,7 +62,7 @@ export default class Api {
   }
 
   // метод установки лайка карточке
-  likeCard(cardID) {
+  setLikeCard(cardID) {
     return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
       method: 'PUT',
       headers: this._headers

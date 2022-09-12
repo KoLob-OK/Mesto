@@ -27,7 +27,8 @@ const selectors = {
   fullSizeImgCaption: '.popup__caption',
   popup: '.popup_opened',
   like: 'element__like-button_active',
-  popupOpenClose: 'popup_opened'
+  popupOpenClose: 'popup_opened',
+  likesCounter: '.element__likes-counter'
 };
 
 // Создадим объект параметров

@@ -1,14 +1,17 @@
 export default class Card {
   // создаем объект с двумя ключами (данные и функцией открывания
   // попапа с картинкой при клике на карточку) и селектор карточки
-  constructor({ data, userID, handleCardClick, handleBasketClick }, selectors) {
+  constructor({ data, userID, handleCardClick, handleBasketClick, handleLikeSet, handleLikeRemove }, selectors) {
     this._name = data.name;
     this._link = data.link;
-    this._userID = userID;
     this._cardID = data._id;
     this._cardOwnerId = data.owner._id;
+    this._likes = data.likes;
+    this._userID = userID;
     this._handleCardClick = handleCardClick;
     this._handleBasketClick = handleBasketClick;
+    this._handleLikeSet = handleLikeSet;
+    this._handleLikeRemove = handleLikeRemove;
     this._selectors = selectors;
   }
 
@@ -24,7 +27,9 @@ export default class Card {
   }
 
   // метод - обработчик (колбэк) слушателя клика по кнопке "лайк"
-  _handleLikeCard() {
+  handleLikeCard(data) {
+    this._likes = data.likes;
+    this._cardLikesCounter.textContent = this._likes.length;
     this._cardLikeButton.classList.toggle(this._selectors.like);
   }
 
@@ -37,6 +42,15 @@ export default class Card {
   // метод - обработчик (колбэк) слушателя клика по изображению
   _handleOpenExpandPicPopup() {
     this._handleCardClick(this._name, this._link);
+  }
+
+  // метод проверки лайка у карточки
+  _hasActiveLike() {
+    if (this._likes.some((user) => {
+      return this._userID === user._id;
+    })) {
+      this._cardLikeButton.classList.add(this._selectors.like);
+    }
   }
 
   // метод проверки владельца карточки (карточка не имеет кнопку "удалить")
@@ -60,7 +74,11 @@ export default class Card {
     })
     // слушатель клика по кнопке лайк
     this._cardLikeButton.addEventListener('click', () => {
-      this._handleLikeCard();
+      if (this._cardLikeButton.classList.contains(this._selectors.like)) {
+        this._handleLikeRemove(this._cardID);
+      } else {
+        this._handleLikeSet(this._cardID);
+      }
     })
   }
 
@@ -72,13 +90,17 @@ export default class Card {
     this._cardImg = this._element.querySelector(this._selectors.cardImg);
     // находим кнопку лайка карточки
     this._cardLikeButton = this._element.querySelector(this._selectors.buttonLike);
+    // находим счетчик лайков
+    this._cardLikesCounter = this._element.querySelector(this._selectors.likesCounter);
     // находим кнопку удаления карточки
     this._cardDelButton = this._element.querySelector(this._selectors.buttonDel);
 
-    // задаем значения (название, ссылка, alt)
+    // задаем значения (название, ссылка, alt, лайки)
     this._cardImg.src = this._link;
     this._cardImg.alt = this._name;
     this._element.querySelector(this._selectors.cardName).textContent = this._name;
+    this._cardLikesCounter.textContent = this._likes.length;
+    this._hasActiveLike();
     this._hasDelButton();
 
     // устанавливаем слушатели для карточки
