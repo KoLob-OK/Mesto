@@ -18,6 +18,7 @@ import FormValidator from '../scripts/components/FormValidator.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
+import PopupWithConfirm from '../scripts/components/PopupWithConfirm.js';
 
 
 /*++++++++++++++++++++API+++++++++++++++++++++++*/
@@ -29,13 +30,13 @@ const api = new Api({
   }
 });
 
-let userId;
+let userID;
 
 // Загрузка initialCards и данных о пользователе с сервера
 Promise.all([api.getUserData(), api.getInitialCards()])
   .then(([userData, initialCards]) => {
     userInfo.setUserInfo(userData);
-    userId = userData._id;
+    userID = userData._id;
     initialCardsList.renderItems(initialCards);
 
   })
@@ -66,8 +67,24 @@ formUpdateAvatarVal.enableValidation();
 const createCard = (data) => {
   const card = new Card({
     data: data,
+    userID: userID,
     handleCardClick: (name, link) => {
       popupExpandPic.open(name, link);
+    },
+    handleBasketClick: (cardID) => {
+
+      popupDelCard.open();
+
+      popupDelCard.submitDelCard(() => {
+        api.delCard(cardID)
+          .then(() => {
+            card.deleteCard();
+            popupDelCard.close();
+          })
+          .catch((err) => {
+            console.log(`Ошибка: ${err}`);
+          });
+      });
     }
   }, selectors);
 
@@ -78,6 +95,11 @@ const createCard = (data) => {
 const popupExpandPic = new PopupWithImage(selectors.popupExpandPic, selectors);
 // слушаем события
 popupExpandPic.setEventListeners();
+
+// создаем экземпляр класса попапа подтверждения удаления карточки
+const popupDelCard = new PopupWithConfirm(selectors.popupDelCard, selectors);
+// слушаем события
+popupDelCard.setEventListeners();
 
 // создаем экземпляр класса Section для отображения карточек на странице
 const initialCardsList = new Section({
@@ -110,9 +132,6 @@ popupAddCardButton.addEventListener('click', () => {
   formAddCardVal.resetValidation();
   popupAddCard.open();
 });
-
-/*// рендерим массив карточек на страницу
-initialCardsList.renderItems();*/
 
 /*-----------------------Работа с карточками------------------------*/
 
