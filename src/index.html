@@ -9,7 +9,6 @@
   <meta name="author" content="KoLobOK">
   <link rel="shortcut icon" href="<%=require('./images/favicon.png')%>" type="image/png">
   <title>Место</title>
-  <!--  <link rel="stylesheet" href="./pages/index.css">-->
 </head>
 
 <body class="page">
@@ -26,7 +25,7 @@
   <section class="profile content__profile">
     <div class="profile__card">
       <img class="profile__avatar"
-           src=""
+           src="<%=require('./images/user-avatar.png')%>"
            alt="Ваш аватар"
       />
       <button class="profile__avatar-button"></button>
@@ -193,7 +192,7 @@
                 type="button"
                 aria-label="Нравится">
         </button>
-        <span class="element__likes-counter">10</span>
+        <span class="element__likes-counter"></span>
       </div>
     </div>
     <button class="element__del-button"
@@ -202,8 +201,6 @@
     </button>
   </li>
 </template>
-
-<!--<script type="module" src="scripts/pages/index.js"></script>-->
 
 </body>
 </html>

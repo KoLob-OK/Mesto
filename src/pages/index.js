@@ -75,7 +75,8 @@ const createCard = (data) => {
       popupDelCard.open();
 
       popupDelCard.submitDelCard(() => {
-        api.delCard(cardID)
+        api
+          .delCard(cardID)
           .then(() => {
             card.deleteCard();
             popupDelCard.close();
@@ -86,21 +87,23 @@ const createCard = (data) => {
       });
     },
     handleLikeSet: (cardID) => {
-      api.setLikeCard(cardID)
+      api
+        .setLikeCard(cardID)
         .then((data) => {
           card.handleLikeCard(data);
         })
         .catch((err) => {
-          console.log(`Ошибка: ${err}`);
+          console.log(`Ошибка установки лайка: ${err}`);
         });
     },
     handleLikeRemove: (cardID) => {
-      api.delLikeCard(cardID)
+      api
+        .delLikeCard(cardID)
         .then((data) => {
           card.handleLikeCard(data);
         })
         .catch((err) => {
-          console.log(`Ошибка: ${err}`);
+          console.log(`Ошибка удаления лайка: ${err}`);
         });
     }
   }, selectors);
@@ -129,14 +132,19 @@ const initialCardsList = new Section({
 const popupAddCard = new PopupWithForm({
   popupSelector: selectors.popupAddCard,
   handleFormSubmit: (formData) => {
-    api.addCard(formData)
+    popupAddCard.loading(true);
+    api
+      .addCard(formData)
       .then((formData) => {
         initialCardsList.addItem(createCard(formData));
         popupAddCard.close();
       })
       .catch((err) => {
-        console.log(`Ошибка: ${err}`);
+        console.log(`Ошибка при загрузке картинки: ${err}`);
       })
+      .finally(() => {
+        popupAddCard.loading();
+      });
   }
 }, selectors, validationConfig);
 
@@ -166,14 +174,19 @@ const userInfo = new UserInfo({
 const popupEditProfile = new PopupWithForm({
   popupSelector: selectors.popupEditProfile,
   handleFormSubmit: (dataForm) => {
-    api.changeUserData(dataForm)
+    popupEditProfile.loading(true);
+    api
+      .changeUserData(dataForm)
       .then((dataForm) => {
         userInfo.setUserInfo(dataForm);
         popupEditProfile.close();
       })
       .catch((err) => {
-        console.log(`Ошибка: ${err}`);
+        console.log(`Обнаружена ошибка при сохранении данных пользователя: ${err}`);
       })
+      .finally(() => {
+        popupEditProfile.loading();
+      });
   }
 }, selectors, validationConfig);
 // устанавливаем слушатели для формы
@@ -192,13 +205,18 @@ popupEditProfileButton.addEventListener('click', () => {
 const popupUpdateAvatar = new PopupWithForm({
   popupSelector: selectors.popupUpdateAvatar,
   handleFormSubmit: (data) => {
-    api.updateAvatar(data)
+    popupUpdateAvatar.loading(true);
+    api
+      .updateAvatar(data)
       .then((data) => {
         avatar.src = data.avatar;
         popupUpdateAvatar.close();
       })
       .catch((err) => {
-        console.log(`Ошибка: ${err}`);
+        console.log(`Ошибка обновления аватара: ${err}`);
+      })
+      .finally(() => {
+        popupUpdateAvatar.loading();
       });
   }
 }, selectors, validationConfig);

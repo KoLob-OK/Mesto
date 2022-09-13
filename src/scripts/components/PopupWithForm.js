@@ -11,6 +11,10 @@ export default class PopupWithForm extends Popup {
     this._popupForm = this._popup.querySelector(validationConfig.form);
     // задаем переменные - ищем все инпуты формы, кладем их в переменную inputList
     this._inputList = this._popupForm.querySelectorAll(validationConfig.formInput);
+    // задаем кнопку сабмита формы
+    this._submitButton = this._popupForm.querySelector(validationConfig.formSubmit);
+    // задаем кнопке сабмита текст
+    this._submitButtonText = this._submitButton.textContent;
   }
 
   // метод собирает данные всех полей формы
@@ -45,5 +49,16 @@ export default class PopupWithForm extends Popup {
     super.close();
     // сбрасываем поля формы
     this._popupForm.reset();
+  }
+
+  // метод измения кнопки при загрузке данных
+  loading(isLoading) {
+    if (isLoading) {
+      this._submitButton.textContent = 'Сохранение...';
+      console.log('Загрузка данных');
+    } else {
+      this._submitButton.textContent = this._submitButtonText;
+      console.log('Загрузка завершена');
+    }
   }
 }
