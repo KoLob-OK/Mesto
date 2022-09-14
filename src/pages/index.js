@@ -34,10 +34,10 @@ let userID;
 
 // Загрузка initialCards и данных о пользователе с сервера
 Promise.all([api.getUserData(), api.getInitialCards()])
-  .then(([userData, initialCards]) => {
-    userInfo.setUserInfo(userData);
-    userID = userData._id;
-    initialCardsList.renderItems(initialCards);
+  .then(([me, cards]) => {
+    userInfo.setUserInfo(me);
+    userID = me._id;
+    initialCardsList.renderItems(cards);
   })
   .catch((err) => {
     console.log(`Ошибка: ${err}`);
@@ -48,14 +48,14 @@ Promise.all([api.getUserData(), api.getInitialCards()])
 /*++++++++++++++++Валидация+++++++++++++++++++++*/
 
 // создаем экземпляр класса FormValidator для формы редактирования профиля
-const formEditProfileVal = new FormValidator(validationConfig, formEditProfileSubmit);
-formEditProfileVal.enableValidation();
+const formEditProfileValidator = new FormValidator(validationConfig, formEditProfileSubmit);
+formEditProfileValidator.enableValidation();
 // создаем экземпляр класса FormValidator для формы добавления карточки
-const formAddCardVal = new FormValidator(validationConfig, formAddCardSubmit);
-formAddCardVal.enableValidation();
+const formAddCardValidator = new FormValidator(validationConfig, formAddCardSubmit);
+formAddCardValidator.enableValidation();
 // создаем экземпляр класса FormValidator для формы обновления аватара
-const formUpdateAvatarVal = new FormValidator(validationConfig, formUpdateAvatar);
-formUpdateAvatarVal.enableValidation();
+const formUpdateAvatarValidator = new FormValidator(validationConfig, formUpdateAvatar);
+formUpdateAvatarValidator.enableValidation();
 
 /*----------------Валидация---------------------*/
 
@@ -136,7 +136,7 @@ const popupAddCard = new PopupWithForm({
     api
       .addCard(formData)
       .then((formData) => {
-        initialCardsList.addItem(createCard(formData));
+        initialCardsList.addItem(createCard(formData), true);
         popupAddCard.close();
       })
       .catch((err) => {
@@ -154,7 +154,7 @@ popupAddCard.setEventListeners();
 // Обработчик кнопки добавления карточки
 popupAddCardButton.addEventListener('click', () => {
   // Вызовем resetValidation для формы, чтобы сбросить валидацию
-  formAddCardVal.resetValidation();
+  formAddCardValidator.resetValidation();
   popupAddCard.open();
 });
 
@@ -196,7 +196,8 @@ popupEditProfileButton.addEventListener('click', () => {
   const info = userInfo.getUserInfo();
   nameInput.value = info.username;
   jobInput.value = info.job;
-  formEditProfileVal.resetValidation();
+  // Вызовем resetValidation для формы, чтобы сбросить валидацию
+  formEditProfileValidator.resetValidation();
   popupEditProfile.open();
 });
 
@@ -224,8 +225,8 @@ const popupUpdateAvatar = new PopupWithForm({
 popupUpdateAvatar.setEventListeners();
 // обработчик кнопки аватара пользователя
 buttonUpdateAvatar.addEventListener('click', () => {
-  // popupUpdateAvatar.toggleButtonState();
-  formUpdateAvatarVal.resetValidation();
+  // Вызовем resetValidation для формы, чтобы сбросить валидацию
+  formUpdateAvatarValidator.resetValidation();
   popupUpdateAvatar.open();
 });
 

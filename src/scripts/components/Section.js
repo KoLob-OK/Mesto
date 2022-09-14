@@ -8,8 +8,11 @@ export default class Section {
     data.forEach(item => this._renderer(item));
   }
 
-  addItem(element) {
-    this._section.prepend(element);
+  addItem(element, isInversed) {
+    if (isInversed) {
+      this._section.prepend(element);
+    } else {
+      this._section.append(element);
+    }
   }
-
 }

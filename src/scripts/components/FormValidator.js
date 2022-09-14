@@ -83,6 +83,7 @@ export default class FormValidator {
     });
   };
 
+  // метод сброса валидации
   resetValidation() {
     this._toggleButtonState();
 
