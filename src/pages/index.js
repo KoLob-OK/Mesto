@@ -30,7 +30,7 @@ const api = new Api({
   }
 });
 
-let userID;
+let userID = null;
 
 // Загрузка initialCards и данных о пользователе с сервера
 Promise.all([api.getUserData(), api.getInitialCards()])

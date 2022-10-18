@@ -9,7 +9,7 @@ export default class Section {
   }
 
   addItem(element, isInversed) {
-    if (isInversed) {
+    if (isInversed === true) {
       this._section.prepend(element);
     } else {
       this._section.append(element);
